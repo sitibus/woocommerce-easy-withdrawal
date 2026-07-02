@@ -1,0 +1,22 @@
+/**
+ * WooCommerce Easy Withdrawal — Admin CSS
+ */
+
+.wew-settings-page h1 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.wew-settings-page .wew-version {
+    font-size: 13px;
+    font-weight: 400;
+    color: #888;
+    background: #f0f0f0;
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+.wew-settings-page .form-table th {
+    width: 220px;
+}

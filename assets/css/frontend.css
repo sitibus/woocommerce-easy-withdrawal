@@ -1,0 +1,420 @@
+/**
+ * WooCommerce Easy Withdrawal — Frontend CSS
+ * Prefisso .wew- su tutti i selettori per evitare conflitti.
+ */
+
+/* ── Pulsante recesso nella tabella ordini ── */
+.woocommerce-orders-table .wew-withdrawal a,
+.woocommerce .wew-withdrawal a {
+    display: inline-block;
+    padding: 6px 14px;
+    font-size: 0.875em;
+    font-weight: 600;
+    color: #fff;
+    background-color: #c55a11;
+    border: none;
+    border-radius: 3px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.woocommerce-orders-table .wew-withdrawal a:hover,
+.woocommerce .wew-withdrawal a:hover {
+    background-color: #a44810;
+    color: #fff;
+}
+
+/* ── Stato "Richiesta inviata" ── */
+.woocommerce-orders-table .wew-status a,
+.woocommerce .wew-status a {
+    display: inline-block;
+    padding: 6px 14px;
+    font-size: 0.875em;
+    font-weight: 600;
+    color: #375623;
+    background-color: #e2efda;
+    border: 1px solid #a9d18e;
+    border-radius: 3px;
+    text-decoration: none;
+    cursor: default;
+    pointer-events: none;
+}
+
+/* ── Notifiche ── */
+.wew-notice {
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    border-left: 4px solid #2e75b6;
+    background: #ebf3fb;
+    border-radius: 2px;
+    font-size: 0.95em;
+}
+
+.wew-notice--success {
+    border-left-color: #375623;
+    background: #e2efda;
+    color: #375623;
+}
+
+.wew-notice--error {
+    border-left-color: #c55a11;
+    background: #fce4d6;
+    color: #c55a11;
+}
+
+/* ══════════════════════════════════════════════════
+   STEP 2 — Form di recesso
+══════════════════════════════════════════════════ */
+
+/* Wrap principale */
+.wew-form-wrap,
+.wew-confirmed-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    font-family: inherit;
+}
+
+/* Breadcrumb */
+.wew-breadcrumb {
+    margin-bottom: 20px;
+    font-size: 0.9em;
+}
+.wew-breadcrumb a {
+    color: #2e75b6;
+    text-decoration: none;
+}
+.wew-breadcrumb a:hover { text-decoration: underline; }
+
+/* Titolo */
+.wew-title {
+    font-size: 1.5em;
+    margin-bottom: 6px;
+    color: #1f3864;
+}
+
+/* Giorni rimanenti */
+.wew-days-remaining {
+    background: #ebf3fb;
+    border-left: 4px solid #2e75b6;
+    padding: 10px 14px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+    font-size: 0.95em;
+    color: #1f3864;
+}
+
+/* Sezioni */
+.wew-section {
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e8e8e8;
+}
+.wew-section:last-of-type { border-bottom: none; }
+
+.wew-section h3 {
+    font-size: 1.05em;
+    margin-bottom: 12px;
+    color: #333;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+.wew-hint {
+    font-size: 0.8em;
+    font-weight: 400;
+    color: #888;
+}
+
+/* Riepilogo ordine */
+.wew-order-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95em;
+    margin-bottom: 0;
+}
+.wew-order-table th,
+.wew-order-table td {
+    padding: 6px 10px;
+    border: 1px solid #e8e8e8;
+}
+.wew-order-table th {
+    background: #f5f5f5;
+    font-weight: 600;
+    width: 160px;
+    text-align: left;
+}
+
+/* Tabella prodotti */
+.wew-items-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95em;
+    margin-bottom: 10px;
+}
+.wew-items-table th,
+.wew-items-table td {
+    padding: 8px 10px;
+    border: 1px solid #e8e8e8;
+    text-align: left;
+    vertical-align: middle;
+}
+.wew-items-table thead th {
+    background: #f5f5f5;
+    font-weight: 600;
+}
+.wew-items-table .wew-check-col {
+    width: 36px;
+    text-align: center;
+}
+.wew-item-checkbox {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+.wew-item-row:hover { background: #fafafa; }
+
+/* Seleziona tutti */
+.wew-select-all-btn {
+    background: none;
+    border: 1px solid #2e75b6;
+    color: #2e75b6;
+    padding: 4px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.85em;
+    margin-top: 6px;
+    transition: background 0.15s;
+}
+.wew-select-all-btn:hover {
+    background: #ebf3fb;
+}
+
+/* Textarea motivo */
+.wew-textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-family: inherit;
+    font-size: 0.95em;
+    resize: vertical;
+    box-sizing: border-box;
+    transition: border-color 0.15s;
+}
+.wew-textarea:focus {
+    border-color: #2e75b6;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(46,117,182,0.15);
+}
+
+/* Accettazione condizioni */
+.wew-accept-section { background: #fafafa; padding: 16px; border-radius: 4px; border-bottom: none; }
+.wew-accept-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 0.95em;
+    line-height: 1.5;
+}
+.wew-accept-label input[type="checkbox"] {
+    margin-top: 3px;
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+}
+
+/* Bottoni */
+.wew-submit-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 24px;
+}
+.wew-btn {
+    display: inline-block;
+    padding: 10px 22px;
+    border-radius: 3px;
+    font-size: 0.95em;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.2s;
+}
+.wew-btn--primary {
+    background: #1f3864;
+    color: #fff;
+}
+.wew-btn--primary:hover { background: #162a4a; color: #fff; }
+.wew-btn--secondary {
+    background: #f5f5f5;
+    color: #555;
+    border: 1px solid #ddd;
+}
+.wew-btn--secondary:hover { background: #e8e8e8; color: #333; }
+
+/* ══════════════════════════════════════════════════
+   STEP 2 — Pagina di conferma
+══════════════════════════════════════════════════ */
+
+.wew-confirmed-header {
+    text-align: center;
+    padding: 32px 0 20px;
+    border-bottom: 1px solid #e8e8e8;
+    margin-bottom: 24px;
+}
+.wew-confirmed-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    background: #e2efda;
+    color: #375623;
+    border-radius: 50%;
+    font-size: 1.8em;
+    margin-bottom: 12px;
+}
+.wew-confirmed-header h2 {
+    color: #375623;
+    margin-bottom: 6px;
+}
+.wew-confirmed-subtitle { color: #555; font-size: 0.95em; }
+
+.wew-confirmed-detail { margin-bottom: 28px; }
+.wew-confirmed-date { margin-bottom: 16px; color: #555; font-size: 0.9em; }
+
+.wew-confirmed-items {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 16px;
+}
+.wew-confirmed-items li {
+    padding: 7px 10px;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95em;
+}
+.wew-confirmed-qty { color: #888; }
+
+.wew-confirmed-reason {
+    background: #f9f9f9;
+    border-left: 3px solid #ddd;
+    padding: 10px 14px;
+    font-style: italic;
+    color: #555;
+    border-radius: 2px;
+    font-size: 0.95em;
+}
+
+.wew-confirmed-status-box {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff8e1;
+    border: 1px solid #ffe082;
+    padding: 10px 16px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: 600;
+    color: #7a5c00;
+    margin: 16px 0;
+}
+.wew-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ffc107;
+    display: inline-block;
+}
+.wew-confirmed-info { color: #666; font-size: 0.9em; margin-top: 10px; }
+
+.wew-confirmed-actions { margin-top: 20px; }
+
+/* ══════════════════════════════════════════════════
+   STEP 4 — Tracking stato cliente
+══════════════════════════════════════════════════ */
+
+.wew-tracking {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 24px 0 32px;
+    padding: 0 10px;
+}
+.wew-tracking-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78em;
+    color: #aaa;
+    min-width: 80px;
+    text-align: center;
+}
+.wew-tracking-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    border: 2px solid #d0d0d0;
+    display: block;
+}
+.wew-tracking-step--done { color: #375623; font-weight: 600; }
+.wew-tracking-step--done .wew-tracking-dot {
+    background: #70ad47;
+    border-color: #548235;
+}
+.wew-tracking-step--rejected { color: #c00000; }
+.wew-tracking-step--rejected .wew-tracking-dot {
+    background: #e06666;
+    border-color: #c00000;
+}
+.wew-tracking-line {
+    flex: 1;
+    height: 2px;
+    background: #e0e0e0;
+    margin: 0 4px;
+    margin-bottom: 22px;
+    max-width: 60px;
+}
+.wew-tracking-line--done { background: #70ad47; }
+
+/* Status box varianti */
+.wew-status--pending { background: #fff8e1; border-color: #ffe082; color: #7a5c00; }
+.wew-status--pending .wew-status-dot { background: #ffc107; }
+.wew-status--accepted { background: #e2efda; border-color: #a9d18e; color: #375623; }
+.wew-status--accepted .wew-status-dot { background: #70ad47; }
+.wew-status--rejected { background: #fce4d6; border-color: #f1aeb5; color: #842029; }
+.wew-status--rejected .wew-status-dot { background: #e06666; }
+
+/* Stati nella tabella ordini cliente */
+.woocommerce-orders-table .wew-status a,
+.woocommerce .wew-status a {
+    cursor: default;
+    pointer-events: none;
+}
+
+/* ── Quantità da restituire nel form ── */
+.wew-qty-input {
+    width: 60px;
+    padding: 4px 6px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    text-align: center;
+    font-size: 0.9em;
+}
+.wew-qty-input:disabled {
+    background: #f5f5f5;
+    color: #aaa;
+    border-color: #eee;
+}
+.wew-qty-input:focus {
+    border-color: #2e75b6;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(46,117,182,.15);
+}
