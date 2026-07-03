@@ -210,19 +210,23 @@
 
 /* Accettazione condizioni */
 .wew-accept-section { background: #fafafa; padding: 16px; border-radius: 4px; border-bottom: none; }
+.wew-accept-wrap {
+    display: table;
+    width: 100%;
+}
+.wew-accept-checkbox {
+    display: table-cell;
+    width: 20px;
+    vertical-align: top;
+    padding-top: 3px;
+}
 .wew-accept-label {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
+    display: table-cell;
     cursor: pointer;
     font-size: 0.95em;
-    line-height: 1.5;
-}
-.wew-accept-label input[type="checkbox"] {
-    margin-top: 3px;
-    flex-shrink: 0;
-    width: 16px;
-    height: 16px;
+    line-height: 1.6;
+    padding-left: 8px;
+    vertical-align: top;
 }
 
 /* Bottoni */

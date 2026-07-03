@@ -168,23 +168,25 @@ defined( 'ABSPATH' ) || exit;
 
 		<!-- Accettazione condizioni -->
 		<section class="wew-section wew-accept-section">
-			<label class="wew-accept-label">
-				<input type="checkbox" name="wew_accept_conditions" id="wew_accept_conditions" value="1" required>
-				<?php if ( $conditions_url ) : ?>
-					<?php
-					printf(
-						/* translators: %s = link alle condizioni di recesso */
-						wp_kses(
-							__( 'Accetto le <a href="%s" target="_blank" rel="noopener">condizioni di recesso</a> e dichiaro di voler esercitare il mio diritto di recesso ai sensi della Direttiva 2011/83/UE.', 'woocommerce-easy-withdrawal' ),
-							[ 'a' => [ 'href' => [], 'target' => [], 'rel' => [] ] ]
-						),
-						esc_url( $conditions_url )
-					);
-					?>
-				<?php else : ?>
-					<?php esc_html_e( 'Dichiaro di voler esercitare il mio diritto di recesso ai sensi della Direttiva 2011/83/UE.', 'woocommerce-easy-withdrawal' ); ?>
-				<?php endif; ?>
-			</label>
+			<div class="wew-accept-wrap">
+				<input type="checkbox" name="wew_accept_conditions" id="wew_accept_conditions" value="1" required class="wew-accept-checkbox">
+				<label for="wew_accept_conditions" class="wew-accept-label">
+					<?php if ( $conditions_url ) : ?>
+						<?php
+						printf(
+							/* translators: %s = link alle condizioni di recesso */
+							wp_kses(
+								__( 'Accetto le <a href="%s" target="_blank" rel="noopener">condizioni di recesso</a> e dichiaro di voler esercitare il mio diritto di recesso ai sensi della Direttiva 2011/83/UE.', 'woocommerce-easy-withdrawal' ),
+								[ 'a' => [ 'href' => [], 'target' => [], 'rel' => [] ] ]
+							),
+							esc_url( $conditions_url )
+						);
+						?>
+					<?php else : ?>
+						<?php esc_html_e( 'Dichiaro di voler esercitare il mio diritto di recesso ai sensi della Direttiva 2011/83/UE.', 'woocommerce-easy-withdrawal' ); ?>
+					<?php endif; ?>
+				</label>
+			</div>
 		</section>
 
 		<!-- Submit -->

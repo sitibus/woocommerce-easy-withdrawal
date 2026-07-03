@@ -78,22 +78,45 @@ class AdminWithdrawalEmail extends \WC_Email {
 		$this->withdrawal_reason = $reason;
 		$this->recipient         = $this->get_default_recipient();
 
-		// Calcola il totale da rimborsare proporzionale alle quantità richieste.
+		// Calcola il totale da rimborsare.
+		// Usa i dati passati dall'hook oppure quelli già salvati nel meta ordine.
 		$refund_total = 0.0;
+		$items_to_use = ! empty( $items ) ? $items : [];
+
+		// Se items è vuoto, prova a leggerlo dal meta salvato.
+		if ( empty( $items_to_use ) ) {
+			$saved = json_decode( $order->get_meta( '_wew_withdrawal_data', true ), true );
+			$items_to_use = $saved['items'] ?? [];
+		}
+
 		foreach ( $order->get_items() as $item_id => $order_item ) {
-			if ( empty( $items[ $item_id ] ) ) {
+			// Cerca per item_id (chiave array) oppure per nome prodotto (fallback).
+			$item_data = $items_to_use[ $item_id ] ?? null;
+			if ( null === $item_data ) {
+				// Fallback: cerca per nome.
+				foreach ( $items_to_use as $i ) {
+					if ( isset( $i['name'] ) && $i['name'] === $order_item->get_name() ) {
+						$item_data = $i;
+						break;
+					}
+				}
+			}
+			if ( null === $item_data ) {
 				continue;
 			}
-			$item_data     = $items[ $item_id ];
+
 			$qty_requested = (int) ( $item_data['qty']         ?? $order_item->get_quantity() );
 			$qty_ordered   = (int) ( $item_data['qty_ordered'] ?? $order_item->get_quantity() );
 			$line_total    = (float) $order->get_line_total( $order_item, true, true );
 			$unit_price    = $qty_ordered > 0 ? $line_total / $qty_ordered : $line_total;
 			$refund_total += $unit_price * $qty_requested;
 		}
+
+		// Fallback: se non abbiamo calcolato nulla usa il totale ordine.
 		if ( $refund_total <= 0 ) {
 			$refund_total = (float) $order->get_total();
 		}
+
 		$this->refund_total     = $refund_total;
 		$this->refund_formatted = wc_price( $refund_total, [ 'currency' => $order->get_currency() ] );
 
