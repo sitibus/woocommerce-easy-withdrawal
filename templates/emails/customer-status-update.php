@@ -18,22 +18,23 @@ $color       = $is_accepted ? '#375623' : '#842029';
 $bg          = $is_accepted ? '#e2efda' : '#f8d7da';
 $icon        = $is_accepted ? '✔' : '✕';
 $label       = $is_accepted
-	? __( 'Approvata', 'woocommerce-easy-withdrawal' )
-	: __( 'Respinta', 'woocommerce-easy-withdrawal' );
+	? __( 'Approvata', 'easy-withdrawal-for-woocommerce' )
+	: __( 'Respinta', 'easy-withdrawal-for-woocommerce' );
 
 do_action( 'woocommerce_email_header', $email_heading, $email );
 ?>
 
 <p><?php
 printf(
-	esc_html__( 'Gentile %s,', 'woocommerce-easy-withdrawal' ),
+	/* translators: %s = nome cliente */
+	esc_html__( 'Gentile %s,', 'easy-withdrawal-for-woocommerce' ),
 	esc_html( $order->get_formatted_billing_full_name() )
 ); ?></p>
 
 <p><?php
 printf(
 	/* translators: %s = numero ordine */
-	esc_html__( 'ti informiamo che la tua richiesta di recesso per l\'ordine #%s è stata aggiornata.', 'woocommerce-easy-withdrawal' ),
+	esc_html__( 'ti informiamo che la tua richiesta di recesso per l\'ordine #%s è stata aggiornata.', 'easy-withdrawal-for-woocommerce' ),
 	esc_html( $order->get_order_number() )
 ); ?></p>
 
@@ -53,18 +54,18 @@ printf(
 </div>
 
 <?php if ( $is_accepted ) : ?>
-<p><?php esc_html_e( 'La tua richiesta è stata approvata. Ti contatteremo a breve con le istruzioni per la restituzione del prodotto e il rimborso.', 'woocommerce-easy-withdrawal' ); ?></p>
+<p><?php esc_html_e( 'La tua richiesta è stata approvata. Ti contatteremo a breve con le istruzioni per la restituzione del prodotto e il rimborso.', 'easy-withdrawal-for-woocommerce' ); ?></p>
 <?php else : ?>
-<p><?php esc_html_e( 'La tua richiesta è stata respinta. Per ulteriori informazioni, rispondi a questa email o contatta il nostro servizio clienti.', 'woocommerce-easy-withdrawal' ); ?></p>
+<p><?php esc_html_e( 'La tua richiesta è stata respinta. Per ulteriori informazioni, rispondi a questa email o contatta il nostro servizio clienti.', 'easy-withdrawal-for-woocommerce' ); ?></p>
 <?php endif; ?>
 
 <table cellspacing="0" cellpadding="6" style="width:100%;border-collapse:collapse;margin-top:20px;">
 	<tr>
-		<th style="text-align:left;background:#f8f8f8;padding:8px 10px;border-bottom:1px solid #e8e8e8;width:150px;"><?php esc_html_e( 'Ordine', 'woocommerce-easy-withdrawal' ); ?></th>
+		<th style="text-align:left;background:#f8f8f8;padding:8px 10px;border-bottom:1px solid #e8e8e8;width:150px;"><?php esc_html_e( 'Ordine', 'easy-withdrawal-for-woocommerce' ); ?></th>
 		<td style="padding:8px 10px;border-bottom:1px solid #e8e8e8;">#<?php echo esc_html( $order->get_order_number() ); ?></td>
 	</tr>
 	<tr>
-		<th style="text-align:left;background:#f8f8f8;padding:8px 10px;"><?php esc_html_e( 'Stato richiesta', 'woocommerce-easy-withdrawal' ); ?></th>
+		<th style="text-align:left;background:#f8f8f8;padding:8px 10px;"><?php esc_html_e( 'Stato richiesta', 'easy-withdrawal-for-woocommerce' ); ?></th>
 		<td style="padding:8px 10px;font-weight:600;color:<?php echo esc_attr( $color ); ?>;"><?php echo esc_html( $label ); ?></td>
 	</tr>
 </table>

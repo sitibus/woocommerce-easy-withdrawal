@@ -46,9 +46,9 @@ final class WithdrawalButton {
 				$wstatus = $data['status'] ?? 'pending';
 
 				$labels = [
-					'pending'  => '⏳ ' . __( 'Recesso in attesa', 'woocommerce-easy-withdrawal' ),
-					'accepted' => '✔ ' . __( 'Recesso approvato', 'woocommerce-easy-withdrawal' ),
-					'rejected' => '✕ ' . __( 'Recesso respinto', 'woocommerce-easy-withdrawal' ),
+					'pending'  => '⏳ ' . __( 'Recesso in attesa', 'easy-withdrawal-for-woocommerce' ),
+					'accepted' => '✔ ' . __( 'Recesso approvato', 'easy-withdrawal-for-woocommerce' ),
+					'rejected' => '✕ ' . __( 'Recesso respinto', 'easy-withdrawal-for-woocommerce' ),
 				];
 
 				$actions['wew_status'] = [

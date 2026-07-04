@@ -22,25 +22,25 @@ use WEW\Helpers\WithdrawalRepository;
 $base_url = admin_url( 'admin.php?page=' . Dashboard::PAGE_SLUG );
 
 $status_tabs = [
-	''         => __( 'Tutte', 'woocommerce-easy-withdrawal' ),
-	'pending'  => __( 'In attesa', 'woocommerce-easy-withdrawal' ),
-	'accepted' => __( 'Approvate', 'woocommerce-easy-withdrawal' ),
-	'rejected' => __( 'Respinte', 'woocommerce-easy-withdrawal' ),
+	''         => __( 'Tutte', 'easy-withdrawal-for-woocommerce' ),
+	'pending'  => __( 'In attesa', 'easy-withdrawal-for-woocommerce' ),
+	'accepted' => __( 'Approvate', 'easy-withdrawal-for-woocommerce' ),
+	'rejected' => __( 'Respinte', 'easy-withdrawal-for-woocommerce' ),
 ];
 
 $status_badges = [
-	'pending'  => [ __( 'In attesa', 'woocommerce-easy-withdrawal' ), 'pending' ],
-	'accepted' => [ __( 'Approvato', 'woocommerce-easy-withdrawal' ), 'accepted' ],
-	'rejected' => [ __( 'Respinto', 'woocommerce-easy-withdrawal' ), 'rejected' ],
+	'pending'  => [ __( 'In attesa', 'easy-withdrawal-for-woocommerce' ), 'pending' ],
+	'accepted' => [ __( 'Approvato', 'easy-withdrawal-for-woocommerce' ), 'accepted' ],
+	'rejected' => [ __( 'Respinto', 'easy-withdrawal-for-woocommerce' ), 'rejected' ],
 ];
 ?>
 <div class="wrap wew-dashboard">
 
-	<h1 class="wp-heading-inline"><?php esc_html_e( 'Richieste di Recesso', 'woocommerce-easy-withdrawal' ); ?></h1>
+	<h1 class="wp-heading-inline"><?php esc_html_e( 'Richieste di Recesso', 'easy-withdrawal-for-woocommerce' ); ?></h1>
 
 	<a href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=wew_export_csv&status=' . $status . '&s=' . rawurlencode( $search ) ), 'wew_export_csv' ) ); ?>"
 	   class="page-title-action">
-		⬇ <?php esc_html_e( 'Esporta CSV', 'woocommerce-easy-withdrawal' ); ?>
+		⬇ <?php esc_html_e( 'Esporta CSV', 'easy-withdrawal-for-woocommerce' ); ?>
 	</a>
 
 	<hr class="wp-header-end">
@@ -71,10 +71,10 @@ $status_badges = [
 			<input type="hidden" name="status" value="<?php echo esc_attr( $status ); ?>">
 		<?php endif; ?>
 		<p class="search-box">
-			<label class="screen-reader-text" for="wew-search-input"><?php esc_html_e( 'Cerca richieste', 'woocommerce-easy-withdrawal' ); ?></label>
+			<label class="screen-reader-text" for="wew-search-input"><?php esc_html_e( 'Cerca richieste', 'easy-withdrawal-for-woocommerce' ); ?></label>
 			<input type="search" id="wew-search-input" name="s" value="<?php echo esc_attr( $search ); ?>"
-				   placeholder="<?php esc_attr_e( 'Cerca cliente, email, ordine...', 'woocommerce-easy-withdrawal' ); ?>">
-			<input type="submit" class="button" value="<?php esc_attr_e( 'Cerca', 'woocommerce-easy-withdrawal' ); ?>">
+				   placeholder="<?php esc_attr_e( 'Cerca cliente, email, ordine...', 'easy-withdrawal-for-woocommerce' ); ?>">
+			<input type="submit" class="button" value="<?php esc_attr_e( 'Cerca', 'easy-withdrawal-for-woocommerce' ); ?>">
 		</p>
 	</form>
 
@@ -82,19 +82,19 @@ $status_badges = [
 	<table class="wp-list-table widefat fixed striped wew-table">
 		<thead>
 			<tr>
-				<th><?php esc_html_e( 'Ordine', 'woocommerce-easy-withdrawal' ); ?></th>
-				<th><?php esc_html_e( 'Cliente', 'woocommerce-easy-withdrawal' ); ?></th>
-				<th><?php esc_html_e( 'Data richiesta', 'woocommerce-easy-withdrawal' ); ?></th>
-					<th><?php esc_html_e( 'Totale', 'woocommerce-easy-withdrawal' ); ?></th>
-				<th><?php esc_html_e( 'Stato', 'woocommerce-easy-withdrawal' ); ?></th>
-				<th><?php esc_html_e( 'Azioni', 'woocommerce-easy-withdrawal' ); ?></th>
+				<th><?php esc_html_e( 'Ordine', 'easy-withdrawal-for-woocommerce' ); ?></th>
+				<th><?php esc_html_e( 'Cliente', 'easy-withdrawal-for-woocommerce' ); ?></th>
+				<th><?php esc_html_e( 'Data richiesta', 'easy-withdrawal-for-woocommerce' ); ?></th>
+					<th><?php esc_html_e( 'Totale', 'easy-withdrawal-for-woocommerce' ); ?></th>
+				<th><?php esc_html_e( 'Stato', 'easy-withdrawal-for-woocommerce' ); ?></th>
+				<th><?php esc_html_e( 'Azioni', 'easy-withdrawal-for-woocommerce' ); ?></th>
 			</tr>
 		</thead>
 		<tbody>
 			<?php if ( empty( $orders ) ) : ?>
 				<tr>
 					<td colspan="7" class="wew-empty-row">
-						<?php esc_html_e( 'Nessuna richiesta di recesso trovata.', 'woocommerce-easy-withdrawal' ); ?>
+						<?php esc_html_e( 'Nessuna richiesta di recesso trovata.', 'easy-withdrawal-for-woocommerce' ); ?>
 					</td>
 				</tr>
 			<?php else : ?>
@@ -127,7 +127,7 @@ $status_badges = [
 						</td>
 						<td>
 							<a href="<?php echo esc_url( $detail_url ); ?>" class="button button-small">
-								<?php esc_html_e( 'Dettaglio', 'woocommerce-easy-withdrawal' ); ?>
+								<?php esc_html_e( 'Dettaglio', 'easy-withdrawal-for-woocommerce' ); ?>
 							</a>
 						</td>
 					</tr>
@@ -144,7 +144,7 @@ $status_badges = [
 					<?php
 					printf(
 						/* translators: %d = numero totale risultati */
-						esc_html( _n( '%d elemento', '%d elementi', $total, 'woocommerce-easy-withdrawal' ) ),
+						esc_html( _n( '%d elemento', '%d elementi', $total, 'easy-withdrawal-for-woocommerce' ) ),
 						(int) $total
 					);
 					?>

@@ -1,8 +1,8 @@
-=== WooCommerce Easy Withdrawal ===
+=== Easy Withdrawal for WooCommerce ===
 Contributors: subitis
-Tags: woocommerce, withdrawal, recesso, reso, eu, direttiva
+Tags: woocommerce, withdrawal, return, eu, refund
 Requires at least: 6.8
-Tested up to: 6.8
+Tested up to: 6.8.2
 Requires PHP: 8.1
 Stable tag: 1.0.0
 License: GPL-2.0-or-later
@@ -10,112 +10,109 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 WC requires at least: 10.0
 WC tested up to: 10.9
 
-EU Right of Withdrawal for WooCommerce – Gestione del diritto di recesso UE conforme alla Direttiva 2011/83/UE.
+EU Right of Withdrawal for WooCommerce. Manage customer withdrawal requests compliant with EU Directive 2011/83/EU.
 
 == Description ==
 
-**WooCommerce Easy Withdrawal** permette ai tuoi clienti di esercitare il diritto di recesso direttamente dal loro account WooCommerce, in modo semplice e conforme alla normativa europea (Direttiva 2011/83/UE).
+**Easy Withdrawal for WooCommerce** allows your customers to exercise their right of withdrawal directly from their WooCommerce account, simply and in compliance with EU Directive 2011/83/EU.
 
-Il plugin gestisce l'intero flusso: dalla richiesta del cliente, alla notifica via email, alla gestione da parte dell'amministratore, fino all'aggiornamento dello stato visibile al cliente.
+The plugin manages the entire flow: from the customer request, to email notification, to admin management, to status update visible to the customer.
 
-= Funzionalità lato cliente =
+= Customer Features =
 
-* Pulsante "Richiedi recesso" nella pagina I miei ordini (appare solo se l'ordine è idoneo)
-* Form guidato con selezione prodotti (totale o parziale) e quantità da restituire
-* Pagina di conferma con tracking dello stato (In attesa / Approvato / Respinto)
-* Email di conferma ricezione richiesta
-* Email di notifica cambio stato (Approvato / Respinto)
-* Download PDF della richiesta di recesso
+* "Request withdrawal" button in the My Orders page (appears only if the order is eligible)
+* Guided form with product selection (total or partial) and quantity to return
+* Confirmation page with status tracking (Pending / Approved / Rejected)
+* Confirmation email on request submission
+* Status change notification email (Approved / Rejected)
+* PDF download of the withdrawal request
 
-= Funzionalità lato amministratore =
+= Admin Features =
 
-* Dashboard WooCommerce con tabella richieste, filtri per stato, ricerca
-* Pagina dettaglio con importo da rimborsare e pulsanti Approva / Respingi
-* Export CSV delle richieste
-* Metabox nell'ordine con dettagli della richiesta
-* Stato ordine personalizzato "Recesso richiesto"
-* Note ordine automatiche con storico
+* Dashboard under WooCommerce with request table, status filters, search
+* Detail page with refund amount and Approve / Reject buttons
+* CSV export of requests
+* Metabox in the order with request details
+* Custom order status "Withdrawal requested"
+* Automatic order notes with history
 
-= Configurazione =
+= Configuration =
 
-* Wizard di configurazione alla prima attivazione
-* Creazione automatica della pagina "Diritto di Recesso" in bozza
-* Giorni di recesso configurabili (default: 14)
-* Supporto recesso parziale (solo alcuni prodotti o quantità parziale)
-* Compatibile con il tema Enfold
+* Setup wizard on first activation
+* Automatic creation of "Right of Withdrawal" page as draft
+* Configurable withdrawal days (default: 14)
+* Partial withdrawal support (select specific products or partial quantity)
+* Compatible with Enfold theme
 
-= Requisiti tecnici =
+= Technical Requirements =
 
-* Compatibile con HPOS (High Performance Order Storage)
+* Compatible with HPOS (High Performance Order Storage)
 * PHP 8.1 - 8.4
 * WordPress 6.8+
 * WooCommerce 10+
-* Nessuna dipendenza esterna (no Composer richiesto)
+* No external dependencies required
 
 == Installation ==
 
-1. Vai su Plugin > Aggiungi nuovo > Carica plugin
-2. Carica il file ZIP
-3. Attiva il plugin
-4. Segui il wizard di configurazione iniziale
-5. Personalizza la pagina "Diritto di Recesso" creata automaticamente e pubblicala
+1. Go to Plugins > Add New > Upload Plugin
+2. Upload the ZIP file
+3. Activate the plugin
+4. Follow the setup wizard
+5. Customize the "Right of Withdrawal" page automatically created as draft and publish it
 
 == Frequently Asked Questions ==
 
-= Il plugin e' conforme alla normativa UE? =
+= Is the plugin compliant with EU regulations? =
 
-Si. Il flusso e' progettato per rispettare i requisiti della Direttiva 2011/83/UE e del D.Lgs. 206/2005 (Codice del Consumo italiano). Si consiglia comunque una verifica legale prima del go-live.
+Yes. The flow is designed to comply with EU Directive 2011/83/EU requirements. A legal review before go-live is always recommended.
 
-= Funziona con HPOS (High Performance Order Storage)? =
+= Does it work with HPOS (High Performance Order Storage)? =
 
-Si, il plugin dichiara esplicitamente la compatibilita' HPOS e non usa meta_query dirette sulle tabelle legacy.
+Yes, the plugin explicitly declares HPOS compatibility and does not use direct meta_query on legacy tables.
 
-= Posso personalizzare le email? =
+= Can I customize the emails? =
 
-Si. Le email sono integrate nel sistema WooCommerce nativo e sono configurabili da WooCommerce > Impostazioni > Email.
+Yes. Emails are integrated into the native WooCommerce email system and can be configured under WooCommerce > Settings > Emails.
 
-= Il recesso parziale e' supportato? =
+= Is partial withdrawal supported? =
 
-Si. Il cliente puo' selezionare singoli prodotti e specificare la quantita' da restituire (es. 2 copie su 3 ordinate).
+Yes. Customers can select individual products and specify the quantity to return (e.g. 2 copies out of 3 ordered).
 
-= Come viene calcolato l'importo da rimborsare? =
+= How is the refund amount calculated? =
 
-L'importo viene calcolato proporzionalmente alle quantita' richieste, IVA inclusa. Appare nella dashboard admin e nell'email di notifica. Il rimborso effettivo va eseguito manualmente.
+The amount is calculated proportionally to the requested quantities, including VAT. It appears in the admin dashboard and notification email. The actual refund must be processed manually.
 
-= Il plugin funziona con il tema Enfold? =
+= Does it work with the Enfold theme? =
 
-Si, include override CSS mirati per la compatibilita' con Enfold senza modificare il tema.
+Yes, it includes targeted CSS overrides for Enfold compatibility without modifying the theme.
 
 == Screenshots ==
 
-1. Pulsante "Richiedi recesso" nella pagina I miei ordini
-2. Form di richiesta recesso con selezione prodotti e quantita'
-3. Pagina di conferma con tracking stato
-4. Dashboard admin con lista richieste e filtri
-5. Pagina dettaglio richiesta con importo da rimborsare
-6. Metabox nell'ordine WooCommerce
-7. Wizard di configurazione iniziale
-8. Pagina impostazioni WooCommerce Recessi
+1. "Request withdrawal" button in the My Orders page
+2. Withdrawal request form with product and quantity selection
+3. Confirmation page with status tracking
+4. Admin dashboard with request list and filters
+5. Request detail page with refund amount
 
 == Changelog ==
 
 = 1.0.0 =
-* Prima versione stabile
-* Struttura OOP con namespace WEW\, autoload PSR-4, compatibilita' HPOS
-* Pulsante recesso condizionato (completato + pagato + entro periodo + nessuna richiesta esistente)
-* Form recesso con flusso UE completo (totale/parziale, quantita' parziale)
-* Email HTML al cliente e admin via sistema WooCommerce nativo
-* Importo da rimborsare calcolato proporzionalmente nelle email e nella dashboard
-* Stato ordine personalizzato "Recesso richiesto"
-* Dashboard admin con filtri, ricerca, Approva/Respingi, export CSV
-* Tracking stato lato cliente
-* PDF scaricabile della richiesta
-* Wizard di configurazione iniziale
-* Creazione automatica pagina "Diritto di Recesso" in bozza
-* File .pot per traduzioni
-* Compatibile PHP 8.1-8.4, WordPress 6.8+, WooCommerce 10+
+* Initial stable release
+* OOP structure with WEW\ namespace, PSR-4 autoload, HPOS compatibility
+* Conditional withdrawal button (completed + paid + within period + no existing request)
+* Withdrawal form with full EU flow (total/partial, partial quantity)
+* HTML emails to customer and admin via native WooCommerce email system
+* Refund amount calculated proportionally in emails and dashboard
+* Custom order status "Withdrawal requested"
+* Admin dashboard with filters, search, Approve/Reject, CSV export
+* Customer-side status tracking
+* Downloadable PDF of the request
+* First-activation setup wizard
+* Automatic creation of "Right of Withdrawal" page as draft
+* .pot file for translations
+* Compatible with PHP 8.1-8.4, WordPress 6.8+, WooCommerce 10+
 
 == Upgrade Notice ==
 
 = 1.0.0 =
-Prima versione stabile. Nessun aggiornamento precedente.
+Initial stable release.

@@ -59,7 +59,7 @@ final class SettingsHelper {
 	 * Testo del pulsante.
 	 */
 	public static function button_text(): string {
-		return (string) self::get( 'button_text', __( 'Richiedi recesso', 'woocommerce-easy-withdrawal' ) );
+		return (string) self::get( 'button_text', __( 'Richiedi recesso', 'easy-withdrawal-for-woocommerce' ) );
 	}
 
 	/**

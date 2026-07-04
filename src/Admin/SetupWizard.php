@@ -41,6 +41,7 @@ final class SetupWizard {
 		}
 
 		// Esegui redirect solo se non siamo già in un processo bulk o AJAX.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( wp_doing_ajax() || isset( $_GET['activate-multi'] ) ) {
 			return;
 		}
@@ -55,8 +56,8 @@ final class SetupWizard {
 	public function register_wizard_page(): void {
 		add_submenu_page(
 			null, // Nessun parent — pagina nascosta.
-			__( 'Configurazione Easy Withdrawal', 'woocommerce-easy-withdrawal' ),
-			__( 'Wizard', 'woocommerce-easy-withdrawal' ),
+			__( 'Configurazione Easy Withdrawal', 'easy-withdrawal-for-woocommerce' ),
+			__( 'Wizard', 'easy-withdrawal-for-woocommerce' ),
 			'manage_woocommerce',
 			'wew-wizard',
 			[ $this, 'render' ]
@@ -66,7 +67,7 @@ final class SetupWizard {
 	/** Render del wizard. */
 	public function render(): void {
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
-			wp_die( esc_html__( 'Accesso non autorizzato.', 'woocommerce-easy-withdrawal' ) );
+			wp_die( esc_html__( 'Accesso non autorizzato.', 'easy-withdrawal-for-woocommerce' ) );
 		}
 
 		$defaults = \WEW\Core\Installer::default_settings();
@@ -77,7 +78,7 @@ final class SetupWizard {
 		<head>
 			<meta charset="<?php bloginfo( 'charset' ); ?>">
 			<meta name="viewport" content="width=device-width,initial-scale=1">
-			<title><?php esc_html_e( 'Configurazione WooCommerce Easy Withdrawal', 'woocommerce-easy-withdrawal' ); ?></title>
+			<title><?php esc_html_e( 'Configurazione WooCommerce Easy Withdrawal', 'easy-withdrawal-for-woocommerce' ); ?></title>
 			<?php wp_print_styles( 'dashicons' ); ?>
 			<style>
 				* { box-sizing: border-box; }
@@ -113,8 +114,8 @@ final class SetupWizard {
 
 			<div class="wew-wizard-header">
 				<div class="wew-wizard-logo">⚖️</div>
-				<h1><?php esc_html_e( 'Benvenuto in Easy Withdrawal', 'woocommerce-easy-withdrawal' ); ?></h1>
-				<p><?php esc_html_e( 'Configura il plugin in pochi secondi per iniziare a gestire i recessi UE.', 'woocommerce-easy-withdrawal' ); ?></p>
+				<h1><?php esc_html_e( 'Benvenuto in Easy Withdrawal', 'easy-withdrawal-for-woocommerce' ); ?></h1>
+				<p><?php esc_html_e( 'Configura il plugin in pochi secondi per iniziare a gestire i recessi UE.', 'easy-withdrawal-for-woocommerce' ); ?></p>
 			</div>
 
 			<div class="wew-step-indicator">
@@ -124,41 +125,42 @@ final class SetupWizard {
 			</div>
 
 			<div class="wew-wizard-card">
-				<h2><?php esc_html_e( 'Impostazioni principali', 'woocommerce-easy-withdrawal' ); ?></h2>
+				<h2><?php esc_html_e( 'Impostazioni principali', 'easy-withdrawal-for-woocommerce' ); ?></h2>
 
 				<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 					<input type="hidden" name="action" value="wew_wizard_save">
 					<?php wp_nonce_field( 'wew_wizard_save' ); ?>
 
 					<div class="wew-field">
-						<label for="wew_withdrawal_days"><?php esc_html_e( 'Giorni per il recesso', 'woocommerce-easy-withdrawal' ); ?></label>
+						<label for="wew_withdrawal_days"><?php esc_html_e( 'Giorni per il recesso', 'easy-withdrawal-for-woocommerce' ); ?></label>
 						<input type="number" id="wew_withdrawal_days" name="withdrawal_days"
 							   value="<?php echo esc_attr( $settings['withdrawal_days'] ); ?>" min="1" max="365">
-						<p class="description"><?php esc_html_e( 'La Direttiva UE prevede un minimo di 14 giorni.', 'woocommerce-easy-withdrawal' ); ?></p>
+						<p class="description"><?php esc_html_e( 'La Direttiva UE prevede un minimo di 14 giorni.', 'easy-withdrawal-for-woocommerce' ); ?></p>
 					</div>
 
 					<div class="wew-field">
-						<label for="wew_admin_email"><?php esc_html_e( 'Email per le notifiche admin', 'woocommerce-easy-withdrawal' ); ?></label>
+						<label for="wew_admin_email"><?php esc_html_e( 'Email per le notifiche admin', 'easy-withdrawal-for-woocommerce' ); ?></label>
 						<input type="email" id="wew_admin_email" name="admin_email"
 							   value="<?php echo esc_attr( $settings['admin_email'] ); ?>">
-						<p class="description"><?php esc_html_e( 'Riceverà una notifica ad ogni nuova richiesta di recesso.', 'woocommerce-easy-withdrawal' ); ?></p>
+						<p class="description"><?php esc_html_e( 'Riceverà una notifica ad ogni nuova richiesta di recesso.', 'easy-withdrawal-for-woocommerce' ); ?></p>
 					</div>
 
 					<div class="wew-field">
-						<label for="wew_button_text"><?php esc_html_e( 'Testo del pulsante recesso', 'woocommerce-easy-withdrawal' ); ?></label>
+						<label for="wew_button_text"><?php esc_html_e( 'Testo del pulsante recesso', 'easy-withdrawal-for-woocommerce' ); ?></label>
 						<input type="text" id="wew_button_text" name="button_text"
 							   value="<?php echo esc_attr( $settings['button_text'] ); ?>">
 					</div>
 
 					<div class="wew-field">
-						<label for="wew_conditions_page"><?php esc_html_e( 'Pagina condizioni di recesso', 'woocommerce-easy-withdrawal' ); ?></label>
+						<label for="wew_conditions_page"><?php esc_html_e( 'Pagina condizioni di recesso', 'easy-withdrawal-for-woocommerce' ); ?></label>
 						<?php
 						wp_dropdown_pages( [
 							'name'              => 'conditions_page_id',
 							'id'                => 'wew_conditions_page',
-							'show_option_none'  => __( '— Nessuna —', 'woocommerce-easy-withdrawal' ),
+							'show_option_none'  => esc_html__( '— Nessuna —', 'easy-withdrawal-for-woocommerce' ),
 							'option_none_value' => '0',
-							'selected'          => $settings['conditions_page_id'],
+							'selected'          => absint( $settings['conditions_page_id'] ),
+							'echo'              => 1,
 						] );
 						?>
 					</div>
@@ -167,16 +169,16 @@ final class SetupWizard {
 						<div class="wew-checkbox-row">
 							<input type="checkbox" id="wew_partial" name="enable_partial_withdrawal" value="1"
 								<?php checked( $settings['enable_partial_withdrawal'], true ); ?>>
-							<label for="wew_partial"><?php esc_html_e( 'Abilita recesso parziale (solo alcuni prodotti)', 'woocommerce-easy-withdrawal' ); ?></label>
+							<label for="wew_partial"><?php esc_html_e( 'Abilita recesso parziale (solo alcuni prodotti)', 'easy-withdrawal-for-woocommerce' ); ?></label>
 						</div>
 					</div>
 
 					<div class="wew-actions">
 						<button type="submit" name="wew_wizard_skip" formaction="<?php echo esc_url( admin_url( 'admin-post.php?action=wew_wizard_skip' ) ); ?>" class="wew-btn-skip">
-							<?php esc_html_e( 'Salta, configurerò dopo', 'woocommerce-easy-withdrawal' ); ?>
+							<?php esc_html_e( 'Salta, configurerò dopo', 'easy-withdrawal-for-woocommerce' ); ?>
 						</button>
 						<button type="submit" class="wew-btn-primary">
-							<?php esc_html_e( 'Salva e inizia →', 'woocommerce-easy-withdrawal' ); ?>
+							<?php esc_html_e( 'Salva e inizia →', 'easy-withdrawal-for-woocommerce' ); ?>
 						</button>
 					</div>
 				</form>
@@ -192,12 +194,12 @@ final class SetupWizard {
 		if ( ! current_user_can( 'manage_woocommerce' )
 			|| ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ?? '' ) ), 'wew_wizard_save' )
 		) {
-			wp_die( esc_html__( 'Accesso non autorizzato.', 'woocommerce-easy-withdrawal' ) );
+			wp_die( esc_html__( 'Accesso non autorizzato.', 'easy-withdrawal-for-woocommerce' ) );
 		}
 
 		$settings = [
 			'withdrawal_days'           => max( 1, absint( $_POST['withdrawal_days'] ?? 14 ) ),
-			'admin_email'               => sanitize_email( $_POST['admin_email'] ?? '' ),
+			'admin_email'               => sanitize_email( wp_unslash( $_POST['admin_email'] ?? '' ) ),
 			'button_text'               => sanitize_text_field( wp_unslash( $_POST['button_text'] ?? '' ) ),
 			'conditions_page_id'        => absint( $_POST['conditions_page_id'] ?? 0 ),
 			'enable_partial_withdrawal' => ! empty( $_POST['enable_partial_withdrawal'] ),
@@ -214,7 +216,7 @@ final class SetupWizard {
 	/** Salta il wizard senza salvare. */
 	public function handle_skip(): void {
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
-			wp_die( esc_html__( 'Accesso non autorizzato.', 'woocommerce-easy-withdrawal' ) );
+			wp_die( esc_html__( 'Accesso non autorizzato.', 'easy-withdrawal-for-woocommerce' ) );
 		}
 
 		update_option( self::COMPLETED_KEY, true );

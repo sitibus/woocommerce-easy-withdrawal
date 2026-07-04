@@ -84,14 +84,14 @@ Dopo l'attivazione, il wizard ti guiderà nella configurazione iniziale. Puoi mo
 ## Struttura del codice
 
 ```
-woocommerce-easy-withdrawal/
+easy-withdrawal-for-woocommerce/
 ├── assets/css/
 │   ├── admin.css
 │   ├── dashboard.css
 │   ├── frontend.css
 │   └── enfold-compat.css
 ├── languages/
-│   └── woocommerce-easy-withdrawal.pot
+│   └── easy-withdrawal-for-woocommerce.pot
 ├── src/
 │   ├── Admin/
 │   │   ├── Dashboard.php         # Dashboard richieste + export CSV
@@ -133,7 +133,7 @@ woocommerce-easy-withdrawal/
 ├── CHANGELOG.md
 ├── README.md
 ├── uninstall.php
-└── woocommerce-easy-withdrawal.php
+└── easy-withdrawal-for-woocommerce.php
 ```
 
 ---

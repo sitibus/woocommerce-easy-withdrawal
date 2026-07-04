@@ -1,14 +1,14 @@
 <?php
 /**
- * Plugin Name:       WooCommerce Easy Withdrawal
- * Plugin URI:        https://github.com/sitibus/woocommerce-easy-withdrawal
+ * Plugin Name:       Easy Withdrawal for WooCommerce
+ * Plugin URI:        https://github.com/sitibus/easy-withdrawal-for-woocommerce
  * Description:       EU Right of Withdrawal (Direttiva 2011/83/UE) per WooCommerce. Conforme, sicuro, riutilizzabile.
  * Version:           1.0.0
  * Author:            Gianluca Busetto
  * Author URI:        https://github.com/sitibus
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       woocommerce-easy-withdrawal
+ * Text Domain:       easy-withdrawal-for-woocommerce
  * Domain Path:       /languages
  * Requires at least: 6.8
  * Requires PHP:      8.1
@@ -31,8 +31,8 @@ define( 'WEW_VERSION',     '1.0.0' );
 define( 'WEW_FILE',        __FILE__ );
 define( 'WEW_DIR',         plugin_dir_path( __FILE__ ) );
 define( 'WEW_URL',         plugin_dir_url( __FILE__ ) );
-define( 'WEW_SLUG',        'woocommerce-easy-withdrawal' );
-define( 'WEW_TEXT_DOMAIN', 'woocommerce-easy-withdrawal' );
+define( 'WEW_SLUG',        'easy-withdrawal-for-woocommerce' );
+define( 'WEW_TEXT_DOMAIN', 'easy-withdrawal-for-woocommerce' );
 
 // Autoloader PSR-4 semplice (senza Composer per portabilità massima).
 spl_autoload_register( function ( string $class ): void {
@@ -63,7 +63,7 @@ add_action( 'plugins_loaded', function (): void {
 	if ( ! class_exists( 'WooCommerce' ) ) {
 		add_action( 'admin_notices', function (): void {
 			echo '<div class="notice notice-error"><p>'
-				. esc_html__( 'WooCommerce Easy Withdrawal richiede WooCommerce attivo.', 'woocommerce-easy-withdrawal' )
+				. esc_html__( 'WooCommerce Easy Withdrawal richiede WooCommerce attivo.', 'easy-withdrawal-for-woocommerce' )
 				. '</p></div>';
 		} );
 		return;

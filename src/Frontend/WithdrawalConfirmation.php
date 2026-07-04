@@ -52,7 +52,7 @@ final class WithdrawalConfirmation {
 			wc_get_template(
 				'withdrawal-confirmed.php',
 				[ 'order' => $order ],
-				'woocommerce-easy-withdrawal/',
+				'easy-withdrawal-for-woocommerce/',
 				WEW_DIR . 'templates/'
 			);
 		}, 5 );

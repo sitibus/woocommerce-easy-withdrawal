@@ -23,8 +23,8 @@ class CustomerStatusUpdateEmail extends \WC_Email {
 	public function __construct() {
 		$this->id             = 'wew_customer_status_update';
 		$this->customer_email = true;
-		$this->title          = __( 'WEW – Aggiornamento stato recesso (cliente)', 'woocommerce-easy-withdrawal' );
-		$this->description    = __( 'Inviata al cliente quando la richiesta viene approvata o respinta.', 'woocommerce-easy-withdrawal' );
+		$this->title          = __( 'WEW – Aggiornamento stato recesso (cliente)', 'easy-withdrawal-for-woocommerce' );
+		$this->description    = __( 'Inviata al cliente quando la richiesta viene approvata o respinta.', 'easy-withdrawal-for-woocommerce' );
 		$this->template_html  = 'emails/customer-status-update.php';
 		$this->template_plain = 'emails/plain/customer-status-update.php';
 		$this->template_base  = WEW_DIR . 'templates/';
@@ -37,11 +37,11 @@ class CustomerStatusUpdateEmail extends \WC_Email {
 	}
 
 	public function get_default_subject(): string {
-		return __( 'Aggiornamento sulla tua richiesta di recesso – Ordine #{order_number}', 'woocommerce-easy-withdrawal' );
+		return __( 'Aggiornamento sulla tua richiesta di recesso – Ordine #{order_number}', 'easy-withdrawal-for-woocommerce' );
 	}
 
 	public function get_default_heading(): string {
-		return __( 'Aggiornamento richiesta di recesso', 'woocommerce-easy-withdrawal' );
+		return __( 'Aggiornamento richiesta di recesso', 'easy-withdrawal-for-woocommerce' );
 	}
 
 	/**
@@ -58,8 +58,8 @@ class CustomerStatusUpdateEmail extends \WC_Email {
 		$this->recipient  = $order->get_billing_email();
 
 		$labels = [
-			'accepted' => __( 'Approvata', 'woocommerce-easy-withdrawal' ),
-			'rejected' => __( 'Respinta', 'woocommerce-easy-withdrawal' ),
+			'accepted' => __( 'Approvata', 'easy-withdrawal-for-woocommerce' ),
+			'rejected' => __( 'Respinta', 'easy-withdrawal-for-woocommerce' ),
 		];
 
 		$this->placeholders['{order_number}'] = $order->get_order_number();
@@ -90,7 +90,7 @@ class CustomerStatusUpdateEmail extends \WC_Email {
 				'plain_text'         => false,
 				'email'              => $this,
 			],
-			'woocommerce-easy-withdrawal/',
+			'easy-withdrawal-for-woocommerce/',
 			$this->template_base
 		);
 	}
@@ -107,7 +107,7 @@ class CustomerStatusUpdateEmail extends \WC_Email {
 				'plain_text'         => true,
 				'email'              => $this,
 			],
-			'woocommerce-easy-withdrawal/',
+			'easy-withdrawal-for-woocommerce/',
 			$this->template_base
 		);
 	}

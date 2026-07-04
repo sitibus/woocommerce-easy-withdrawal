@@ -16,23 +16,23 @@ use WEW\Admin\Dashboard;
 $back_url = admin_url( 'admin.php?page=' . Dashboard::PAGE_SLUG );
 
 $status_badges = [
-	'pending'  => [ __( 'In attesa', 'woocommerce-easy-withdrawal' ), 'pending' ],
-	'accepted' => [ __( 'Approvato', 'woocommerce-easy-withdrawal' ), 'accepted' ],
-	'rejected' => [ __( 'Respinto', 'woocommerce-easy-withdrawal' ), 'rejected' ],
+	'pending'  => [ __( 'In attesa', 'easy-withdrawal-for-woocommerce' ), 'pending' ],
+	'accepted' => [ __( 'Approvato', 'easy-withdrawal-for-woocommerce' ), 'accepted' ],
+	'rejected' => [ __( 'Respinto', 'easy-withdrawal-for-woocommerce' ), 'rejected' ],
 ];
 $badge = $status_badges[ $data['status'] ] ?? $status_badges['pending'];
 ?>
 <div class="wrap wew-dashboard wew-detail">
 
 	<a href="<?php echo esc_url( $back_url ); ?>" class="wew-back-link">
-		← <?php esc_html_e( 'Torna alla lista', 'woocommerce-easy-withdrawal' ); ?>
+		← <?php esc_html_e( 'Torna alla lista', 'easy-withdrawal-for-woocommerce' ); ?>
 	</a>
 
 	<h1 class="wp-heading-inline">
 		<?php
 		printf(
 			/* translators: %s = numero ordine */
-			esc_html__( 'Richiesta di recesso — Ordine #%s', 'woocommerce-easy-withdrawal' ),
+			esc_html__( 'Richiesta di recesso — Ordine #%s', 'easy-withdrawal-for-woocommerce' ),
 			esc_html( $order->get_order_number() )
 		);
 		?>
@@ -49,24 +49,24 @@ $badge = $status_badges[ $data['status'] ] ?? $status_badges['pending'];
 		<div class="wew-detail-main">
 
 			<div class="wew-card">
-				<h2><?php esc_html_e( 'Dati cliente', 'woocommerce-easy-withdrawal' ); ?></h2>
+				<h2><?php esc_html_e( 'Dati cliente', 'easy-withdrawal-for-woocommerce' ); ?></h2>
 				<table class="wew-detail-table">
 					<tr>
-						<th><?php esc_html_e( 'Nome', 'woocommerce-easy-withdrawal' ); ?></th>
+						<th><?php esc_html_e( 'Nome', 'easy-withdrawal-for-woocommerce' ); ?></th>
 						<td><?php echo esc_html( $order->get_formatted_billing_full_name() ); ?></td>
 					</tr>
 					<tr>
-						<th><?php esc_html_e( 'Email', 'woocommerce-easy-withdrawal' ); ?></th>
+						<th><?php esc_html_e( 'Email', 'easy-withdrawal-for-woocommerce' ); ?></th>
 						<td><a href="mailto:<?php echo esc_attr( $order->get_billing_email() ); ?>"><?php echo esc_html( $order->get_billing_email() ); ?></a></td>
 					</tr>
 					<?php if ( $order->get_billing_phone() ) : ?>
 					<tr>
-						<th><?php esc_html_e( 'Telefono', 'woocommerce-easy-withdrawal' ); ?></th>
+						<th><?php esc_html_e( 'Telefono', 'easy-withdrawal-for-woocommerce' ); ?></th>
 						<td><?php echo esc_html( $order->get_billing_phone() ); ?></td>
 					</tr>
 					<?php endif; ?>
 					<tr>
-						<th><?php esc_html_e( 'Data richiesta', 'woocommerce-easy-withdrawal' ); ?></th>
+						<th><?php esc_html_e( 'Data richiesta', 'easy-withdrawal-for-woocommerce' ); ?></th>
 						<td>
 							<?php
 							echo $data['requested_at']
@@ -79,13 +79,13 @@ $badge = $status_badges[ $data['status'] ] ?? $status_badges['pending'];
 			</div>
 
 			<div class="wew-card">
-				<h2><?php esc_html_e( 'Prodotti inclusi nel recesso', 'woocommerce-easy-withdrawal' ); ?></h2>
+				<h2><?php esc_html_e( 'Prodotti inclusi nel recesso', 'easy-withdrawal-for-woocommerce' ); ?></h2>
 				<?php if ( ! empty( $data['items'] ) ) : ?>
 					<table class="wew-detail-table wew-items-table-detail">
 						<thead>
 							<tr>
-								<th><?php esc_html_e( 'Prodotto', 'woocommerce-easy-withdrawal' ); ?></th>
-								<th><?php esc_html_e( 'Quantità', 'woocommerce-easy-withdrawal' ); ?></th>
+								<th><?php esc_html_e( 'Prodotto', 'easy-withdrawal-for-woocommerce' ); ?></th>
+								<th><?php esc_html_e( 'Quantità', 'easy-withdrawal-for-woocommerce' ); ?></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -98,13 +98,13 @@ $badge = $status_badges[ $data['status'] ] ?? $status_badges['pending'];
 						</tbody>
 					</table>
 				<?php else : ?>
-					<p><?php esc_html_e( 'Nessun prodotto registrato.', 'woocommerce-easy-withdrawal' ); ?></p>
+					<p><?php esc_html_e( 'Nessun prodotto registrato.', 'easy-withdrawal-for-woocommerce' ); ?></p>
 				<?php endif; ?>
 			</div>
 
 			<?php if ( $data['reason'] ) : ?>
 			<div class="wew-card">
-				<h2><?php esc_html_e( 'Motivo dichiarato', 'woocommerce-easy-withdrawal' ); ?></h2>
+				<h2><?php esc_html_e( 'Motivo dichiarato', 'easy-withdrawal-for-woocommerce' ); ?></h2>
 				<p class="wew-reason-text"><?php echo esc_html( $data['reason'] ); ?></p>
 			</div>
 			<?php endif; ?>
@@ -115,7 +115,7 @@ $badge = $status_badges[ $data['status'] ] ?? $status_badges['pending'];
 		<div class="wew-detail-sidebar">
 
 			<div class="wew-card wew-actions-card">
-				<h2><?php esc_html_e( 'Azioni', 'woocommerce-easy-withdrawal' ); ?></h2>
+				<h2><?php esc_html_e( 'Azioni', 'easy-withdrawal-for-woocommerce' ); ?></h2>
 
 				<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 					<input type="hidden" name="action" value="wew_update_status">
@@ -124,34 +124,34 @@ $badge = $status_badges[ $data['status'] ] ?? $status_badges['pending'];
 
 					<?php if ( 'pending' === $data['status'] ) : ?>
 						<button type="submit" name="new_status" value="accepted" class="button button-primary wew-action-btn wew-action-btn--accept">
-							✔ <?php esc_html_e( 'Approva richiesta', 'woocommerce-easy-withdrawal' ); ?>
+							✔ <?php esc_html_e( 'Approva richiesta', 'easy-withdrawal-for-woocommerce' ); ?>
 						</button>
 						<button type="submit" name="new_status" value="rejected" class="button wew-action-btn wew-action-btn--reject">
-							✕ <?php esc_html_e( 'Respingi richiesta', 'woocommerce-easy-withdrawal' ); ?>
+							✕ <?php esc_html_e( 'Respingi richiesta', 'easy-withdrawal-for-woocommerce' ); ?>
 						</button>
 					<?php elseif ( 'accepted' === $data['status'] ) : ?>
 						<p class="wew-status-info wew-status-info--accepted">
-							✔ <?php esc_html_e( 'Richiesta già approvata.', 'woocommerce-easy-withdrawal' ); ?>
+							✔ <?php esc_html_e( 'Richiesta già approvata.', 'easy-withdrawal-for-woocommerce' ); ?>
 						</p>
 						<button type="submit" name="new_status" value="rejected" class="button wew-action-btn wew-action-btn--reject">
-							<?php esc_html_e( 'Revoca e respingi', 'woocommerce-easy-withdrawal' ); ?>
+							<?php esc_html_e( 'Revoca e respingi', 'easy-withdrawal-for-woocommerce' ); ?>
 						</button>
 					<?php else : ?>
 						<p class="wew-status-info wew-status-info--rejected">
-							✕ <?php esc_html_e( 'Richiesta respinta.', 'woocommerce-easy-withdrawal' ); ?>
+							✕ <?php esc_html_e( 'Richiesta respinta.', 'easy-withdrawal-for-woocommerce' ); ?>
 						</p>
 						<button type="submit" name="new_status" value="accepted" class="button button-primary wew-action-btn wew-action-btn--accept">
-							<?php esc_html_e( 'Riconsidera e approva', 'woocommerce-easy-withdrawal' ); ?>
+							<?php esc_html_e( 'Riconsidera e approva', 'easy-withdrawal-for-woocommerce' ); ?>
 						</button>
 					<?php endif; ?>
 				</form>
 			</div>
 
 			<div class="wew-card">
-				<h2><?php esc_html_e( 'Ordine collegato', 'woocommerce-easy-withdrawal' ); ?></h2>
+				<h2><?php esc_html_e( 'Ordine collegato', 'easy-withdrawal-for-woocommerce' ); ?></h2>
 				<table class="wew-detail-table">
 					<tr>
-						<th><?php esc_html_e( 'Totale ordine', 'woocommerce-easy-withdrawal' ); ?></th>
+						<th><?php esc_html_e( 'Totale ordine', 'easy-withdrawal-for-woocommerce' ); ?></th>
 						<td><?php echo wp_kses_post( $order->get_formatted_order_total() ); ?></td>
 					</tr>
 					<?php
@@ -182,35 +182,35 @@ $badge = $status_badges[ $data['status'] ] ?? $status_badges['pending'];
 					}
 					?>
 					<tr>
-						<th><?php esc_html_e( 'Da rimborsare', 'woocommerce-easy-withdrawal' ); ?></th>
+						<th><?php esc_html_e( 'Da rimborsare', 'easy-withdrawal-for-woocommerce' ); ?></th>
 						<td>
 							<strong style="color:#0f5132;font-size:15px;">
 								<?php echo wp_kses_post( wc_price( $refund_total, [ 'currency' => $order->get_currency() ] ) ); ?>
 							</strong>
 							<?php if ( $is_partial ) : ?>
-								<br><small style="color:#888;"><?php esc_html_e( 'Recesso parziale — solo prodotti selezionati', 'woocommerce-easy-withdrawal' ); ?></small>
+								<br><small style="color:#888;"><?php esc_html_e( 'Recesso parziale — solo prodotti selezionati', 'easy-withdrawal-for-woocommerce' ); ?></small>
 							<?php else : ?>
-								<br><small style="color:#888;"><?php esc_html_e( 'Recesso totale', 'woocommerce-easy-withdrawal' ); ?></small>
+								<br><small style="color:#888;"><?php esc_html_e( 'Recesso totale', 'easy-withdrawal-for-woocommerce' ); ?></small>
 							<?php endif; ?>
 						</td>
 					</tr>
 					<tr>
-						<th><?php esc_html_e( 'Stato ordine', 'woocommerce-easy-withdrawal' ); ?></th>
+						<th><?php esc_html_e( 'Stato ordine', 'easy-withdrawal-for-woocommerce' ); ?></th>
 						<td><?php echo esc_html( wc_get_order_status_name( $order->get_status() ) ); ?></td>
 					</tr>
 				</table>
 				<p class="wew-refund-note">
-					⚠️ <?php esc_html_e( 'Importo indicativo IVA inclusa. Il rimborso va effettuato manualmente.', 'woocommerce-easy-withdrawal' ); ?>
+					⚠️ <?php esc_html_e( 'Importo indicativo IVA inclusa. Il rimborso va effettuato manualmente.', 'easy-withdrawal-for-woocommerce' ); ?>
 				</p>
 				<p>
 					<a href="<?php echo esc_url( $order->get_edit_order_url() ); ?>" class="button">
-						<?php esc_html_e( 'Apri ordine in WooCommerce →', 'woocommerce-easy-withdrawal' ); ?>
+						<?php esc_html_e( 'Apri ordine in WooCommerce →', 'easy-withdrawal-for-woocommerce' ); ?>
 					</a>
 				</p>
 				<p>
 					<a href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=wew_download_pdf&order_id=' . $order->get_id() ), 'wew_pdf_' . $order->get_id() ) ); ?>"
 					   class="button" target="_blank">
-						📄 <?php esc_html_e( 'Scarica PDF recesso', 'woocommerce-easy-withdrawal' ); ?>
+						📄 <?php esc_html_e( 'Scarica PDF recesso', 'easy-withdrawal-for-woocommerce' ); ?>
 					</a>
 				</p>
 			</div>

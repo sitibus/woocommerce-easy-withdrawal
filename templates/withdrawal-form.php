@@ -19,14 +19,14 @@ defined( 'ABSPATH' ) || exit;
 
 	<?php wc_print_notices(); ?>
 
-	<nav class="wew-breadcrumb" aria-label="<?php esc_attr_e( 'Navigazione', 'woocommerce-easy-withdrawal' ); ?>">
+	<nav class="wew-breadcrumb" aria-label="<?php esc_attr_e( 'Navigazione', 'easy-withdrawal-for-woocommerce' ); ?>">
 		<a href="<?php echo esc_url( wc_get_account_endpoint_url( 'orders' ) ); ?>">
-			← <?php esc_html_e( 'I miei ordini', 'woocommerce-easy-withdrawal' ); ?>
+			← <?php esc_html_e( 'I miei ordini', 'easy-withdrawal-for-woocommerce' ); ?>
 		</a>
 	</nav>
 
 	<h2 class="wew-title">
-		<?php esc_html_e( 'Richiesta di recesso', 'woocommerce-easy-withdrawal' ); ?>
+		<?php esc_html_e( 'Richiesta di recesso', 'easy-withdrawal-for-woocommerce' ); ?>
 	</h2>
 
 	<?php if ( $days_remaining > 0 ) : ?>
@@ -38,7 +38,7 @@ defined( 'ABSPATH' ) || exit;
 					'Hai ancora %d giorno per esercitare il diritto di recesso.',
 					'Hai ancora %d giorni per esercitare il diritto di recesso.',
 					$days_remaining,
-					'woocommerce-easy-withdrawal'
+					'easy-withdrawal-for-woocommerce'
 				) ),
 				esc_html( $days_remaining )
 			);
@@ -48,18 +48,18 @@ defined( 'ABSPATH' ) || exit;
 
 	<!-- Riepilogo ordine -->
 	<section class="wew-order-summary">
-		<h3><?php esc_html_e( 'Riepilogo ordine', 'woocommerce-easy-withdrawal' ); ?></h3>
+		<h3><?php esc_html_e( 'Riepilogo ordine', 'easy-withdrawal-for-woocommerce' ); ?></h3>
 		<table class="wew-order-table">
 			<tr>
-				<th><?php esc_html_e( 'Ordine', 'woocommerce-easy-withdrawal' ); ?></th>
+				<th><?php esc_html_e( 'Ordine', 'easy-withdrawal-for-woocommerce' ); ?></th>
 				<td>#<?php echo esc_html( $order->get_order_number() ); ?></td>
 			</tr>
 			<tr>
-				<th><?php esc_html_e( 'Data ordine', 'woocommerce-easy-withdrawal' ); ?></th>
+				<th><?php esc_html_e( 'Data ordine', 'easy-withdrawal-for-woocommerce' ); ?></th>
 				<td><?php echo esc_html( wc_format_datetime( $order->get_date_created() ) ); ?></td>
 			</tr>
 			<tr>
-				<th><?php esc_html_e( 'Totale', 'woocommerce-easy-withdrawal' ); ?></th>
+				<th><?php esc_html_e( 'Totale', 'easy-withdrawal-for-woocommerce' ); ?></th>
 				<td><?php echo wp_kses_post( $order->get_formatted_order_total() ); ?></td>
 			</tr>
 		</table>
@@ -76,10 +76,10 @@ defined( 'ABSPATH' ) || exit;
 		<section class="wew-section">
 			<h3>
 				<?php if ( $partial_enabled ) : ?>
-					<?php esc_html_e( 'Seleziona i prodotti da restituire', 'woocommerce-easy-withdrawal' ); ?>
-					<span class="wew-hint"><?php esc_html_e( '(seleziona almeno uno)', 'woocommerce-easy-withdrawal' ); ?></span>
+					<?php esc_html_e( 'Seleziona i prodotti da restituire', 'easy-withdrawal-for-woocommerce' ); ?>
+					<span class="wew-hint"><?php esc_html_e( '(seleziona almeno uno)', 'easy-withdrawal-for-woocommerce' ); ?></span>
 				<?php else : ?>
-					<?php esc_html_e( 'Prodotti inclusi nel recesso', 'woocommerce-easy-withdrawal' ); ?>
+					<?php esc_html_e( 'Prodotti inclusi nel recesso', 'easy-withdrawal-for-woocommerce' ); ?>
 				<?php endif; ?>
 			</h3>
 
@@ -89,12 +89,12 @@ defined( 'ABSPATH' ) || exit;
 						<?php if ( $partial_enabled ) : ?>
 							<th class="wew-check-col"></th>
 						<?php endif; ?>
-						<th><?php esc_html_e( 'Prodotto', 'woocommerce-easy-withdrawal' ); ?></th>
-						<th style="text-align:center;"><?php esc_html_e( 'Qtà ordinata', 'woocommerce-easy-withdrawal' ); ?></th>
+						<th><?php esc_html_e( 'Prodotto', 'easy-withdrawal-for-woocommerce' ); ?></th>
+						<th style="text-align:center;"><?php esc_html_e( 'Qtà ordinata', 'easy-withdrawal-for-woocommerce' ); ?></th>
 						<?php if ( $partial_enabled ) : ?>
-							<th style="text-align:center;"><?php esc_html_e( 'Qtà da restituire', 'woocommerce-easy-withdrawal' ); ?></th>
+							<th style="text-align:center;"><?php esc_html_e( 'Qtà da restituire', 'easy-withdrawal-for-woocommerce' ); ?></th>
 						<?php endif; ?>
-						<th><?php esc_html_e( 'Prezzo', 'woocommerce-easy-withdrawal' ); ?></th>
+						<th><?php esc_html_e( 'Prezzo', 'easy-withdrawal-for-woocommerce' ); ?></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -145,7 +145,7 @@ defined( 'ABSPATH' ) || exit;
 
 			<?php if ( $partial_enabled ) : ?>
 				<button type="button" class="wew-select-all-btn" id="wew-select-all">
-					<?php esc_html_e( 'Seleziona tutti', 'woocommerce-easy-withdrawal' ); ?>
+					<?php esc_html_e( 'Seleziona tutti', 'easy-withdrawal-for-woocommerce' ); ?>
 				</button>
 			<?php endif; ?>
 		</section>
@@ -153,8 +153,8 @@ defined( 'ABSPATH' ) || exit;
 		<!-- Motivo (facoltativo) -->
 		<section class="wew-section">
 			<h3>
-				<?php esc_html_e( 'Motivo del recesso', 'woocommerce-easy-withdrawal' ); ?>
-				<span class="wew-hint"><?php esc_html_e( '(facoltativo)', 'woocommerce-easy-withdrawal' ); ?></span>
+				<?php esc_html_e( 'Motivo del recesso', 'easy-withdrawal-for-woocommerce' ); ?>
+				<span class="wew-hint"><?php esc_html_e( '(facoltativo)', 'easy-withdrawal-for-woocommerce' ); ?></span>
 			</h3>
 			<textarea
 				name="wew_reason"
@@ -162,7 +162,7 @@ defined( 'ABSPATH' ) || exit;
 				class="wew-textarea"
 				rows="4"
 				maxlength="1000"
-				placeholder="<?php esc_attr_e( 'Descrivi il motivo del recesso...', 'woocommerce-easy-withdrawal' ); ?>"
+				placeholder="<?php esc_attr_e( 'Descrivi il motivo del recesso...', 'easy-withdrawal-for-woocommerce' ); ?>"
 			></textarea>
 		</section>
 
@@ -174,16 +174,16 @@ defined( 'ABSPATH' ) || exit;
 					<?php if ( $conditions_url ) : ?>
 						<?php
 						printf(
-							/* translators: %s = link alle condizioni di recesso */
 							wp_kses(
-								__( 'Accetto le <a href="%s" target="_blank" rel="noopener">condizioni di recesso</a> e dichiaro di voler esercitare il mio diritto di recesso ai sensi della Direttiva 2011/83/UE.', 'woocommerce-easy-withdrawal' ),
+								/* translators: %s = URL pagina condizioni di recesso */
+								__( 'Accetto le <a href="%s" target="_blank" rel="noopener">condizioni di recesso</a> e dichiaro di voler esercitare il mio diritto di recesso ai sensi della Direttiva 2011/83/UE.', 'easy-withdrawal-for-woocommerce' ),
 								[ 'a' => [ 'href' => [], 'target' => [], 'rel' => [] ] ]
 							),
 							esc_url( $conditions_url )
 						);
 						?>
 					<?php else : ?>
-						<?php esc_html_e( 'Dichiaro di voler esercitare il mio diritto di recesso ai sensi della Direttiva 2011/83/UE.', 'woocommerce-easy-withdrawal' ); ?>
+						<?php esc_html_e( 'Dichiaro di voler esercitare il mio diritto di recesso ai sensi della Direttiva 2011/83/UE.', 'easy-withdrawal-for-woocommerce' ); ?>
 					<?php endif; ?>
 				</label>
 			</div>
@@ -192,10 +192,10 @@ defined( 'ABSPATH' ) || exit;
 		<!-- Submit -->
 		<div class="wew-submit-row">
 			<button type="submit" class="wew-btn wew-btn--primary" id="wew-submit-btn">
-				<?php esc_html_e( 'Invia richiesta di recesso', 'woocommerce-easy-withdrawal' ); ?>
+				<?php esc_html_e( 'Invia richiesta di recesso', 'easy-withdrawal-for-woocommerce' ); ?>
 			</button>
 			<a href="<?php echo esc_url( wc_get_account_endpoint_url( 'orders' ) ); ?>" class="wew-btn wew-btn--secondary">
-				<?php esc_html_e( 'Annulla', 'woocommerce-easy-withdrawal' ); ?>
+				<?php esc_html_e( 'Annulla', 'easy-withdrawal-for-woocommerce' ); ?>
 			</a>
 		</div>
 
@@ -235,8 +235,8 @@ defined( 'ABSPATH' ) || exit;
 				toggleQty(cb);
 			});
 			selectAllBtn.textContent = allChecked
-				? '<?php echo esc_js( __( 'Deseleziona tutti', 'woocommerce-easy-withdrawal' ) ); ?>'
-				: '<?php echo esc_js( __( 'Seleziona tutti', 'woocommerce-easy-withdrawal' ) ); ?>';
+				? '<?php echo esc_js( __( 'Deseleziona tutti', 'easy-withdrawal-for-woocommerce' ) ); ?>'
+				: '<?php echo esc_js( __( 'Seleziona tutti', 'easy-withdrawal-for-woocommerce' ) ); ?>';
 		});
 	}
 
@@ -250,7 +250,7 @@ defined( 'ABSPATH' ) || exit;
 			var atLeastOne = Array.from(checkboxes).some(function(cb) { return cb.checked; });
 			if (!atLeastOne) {
 				e.preventDefault();
-				alert('<?php echo esc_js( __( 'Seleziona almeno un prodotto per procedere.', 'woocommerce-easy-withdrawal' ) ); ?>');
+				alert('<?php echo esc_js( __( 'Seleziona almeno un prodotto per procedere.', 'easy-withdrawal-for-woocommerce' ) ); ?>');
 				return;
 			}
 
@@ -269,7 +269,7 @@ defined( 'ABSPATH' ) || exit;
 			});
 			if (invalid) {
 				e.preventDefault();
-				alert('<?php echo esc_js( __( 'Verifica le quantità inserite.', 'woocommerce-easy-withdrawal' ) ); ?>');
+				alert('<?php echo esc_js( __( 'Verifica le quantità inserite.', 'easy-withdrawal-for-woocommerce' ) ); ?>');
 			}
 		});
 	}

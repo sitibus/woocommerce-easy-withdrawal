@@ -38,8 +38,8 @@ final class Dashboard {
 	public function register_menu(): void {
 		add_submenu_page(
 			'woocommerce',
-			__( 'Richieste di Recesso', 'woocommerce-easy-withdrawal' ),
-			__( 'Richieste Recesso', 'woocommerce-easy-withdrawal' ),
+			__( 'Richieste di Recesso', 'easy-withdrawal-for-woocommerce' ),
+			__( 'Richieste Recesso', 'easy-withdrawal-for-woocommerce' ),
 			'manage_woocommerce',
 			self::PAGE_SLUG,
 			[ $this, 'render_page' ]
@@ -49,10 +49,12 @@ final class Dashboard {
 	/** Render della pagina (lista o dettaglio in base a query string). */
 	public function render_page(): void {
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
-			wp_die( esc_html__( 'Accesso non autorizzato.', 'woocommerce-easy-withdrawal' ) );
+			wp_die( esc_html__( 'Accesso non autorizzato.', 'easy-withdrawal-for-woocommerce' ) );
 		}
 
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only navigation params, no data modification.
 		$view     = sanitize_key( $_GET['view'] ?? 'list' );
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$order_id = absint( $_GET['order_id'] ?? 0 );
 
 		if ( 'detail' === $view && $order_id ) {
@@ -67,10 +69,12 @@ final class Dashboard {
 
 	/** Render della tabella principale con filtri. */
 	private function render_list(): void {
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Filtri di sola lettura, nessuna modifica dati.
 		$status   = sanitize_key( $_GET['status'] ?? '' );
 		$search   = sanitize_text_field( wp_unslash( $_GET['s'] ?? '' ) );
 		$paged    = max( 1, absint( $_GET['paged'] ?? 1 ) );
 		$per_page = 20;
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 		$result = WithdrawalRepository::query( [
 			'status'   => $status,
@@ -101,7 +105,7 @@ final class Dashboard {
 
 		if ( ! $order instanceof \WC_Order || ! $order->get_meta( '_wew_withdrawal_requested', true ) ) {
 			echo '<div class="wrap"><div class="notice notice-error"><p>'
-				. esc_html__( 'Richiesta non trovata.', 'woocommerce-easy-withdrawal' )
+				. esc_html__( 'Richiesta non trovata.', 'easy-withdrawal-for-woocommerce' )
 				. '</p></div></div>';
 			return;
 		}
@@ -117,7 +121,7 @@ final class Dashboard {
 	/** Gestisce l'aggiornamento di stato (Approva / Respingi) via admin-post.php. */
 	public function handle_status_update(): void {
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
-			wp_die( esc_html__( 'Accesso non autorizzato.', 'woocommerce-easy-withdrawal' ) );
+			wp_die( esc_html__( 'Accesso non autorizzato.', 'easy-withdrawal-for-woocommerce' ) );
 		}
 
 		$order_id = absint( $_POST['order_id'] ?? 0 );
@@ -125,7 +129,7 @@ final class Dashboard {
 		$nonce    = sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ?? '' ) );
 
 		if ( ! wp_verify_nonce( $nonce, 'wew_update_status_' . $order_id ) ) {
-			wp_die( esc_html__( 'Richiesta non valida.', 'woocommerce-easy-withdrawal' ) );
+			wp_die( esc_html__( 'Richiesta non valida.', 'easy-withdrawal-for-woocommerce' ) );
 		}
 
 		$success = WithdrawalRepository::update_status( $order_id, $status );
@@ -147,12 +151,12 @@ final class Dashboard {
 	/** Esporta le richieste filtrate in CSV. */
 	public function handle_csv_export(): void {
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
-			wp_die( esc_html__( 'Accesso non autorizzato.', 'woocommerce-easy-withdrawal' ) );
+			wp_die( esc_html__( 'Accesso non autorizzato.', 'easy-withdrawal-for-woocommerce' ) );
 		}
 
 		$nonce = sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ?? '' ) );
 		if ( ! wp_verify_nonce( $nonce, 'wew_export_csv' ) ) {
-			wp_die( esc_html__( 'Richiesta non valida.', 'woocommerce-easy-withdrawal' ) );
+			wp_die( esc_html__( 'Richiesta non valida.', 'easy-withdrawal-for-woocommerce' ) );
 		}
 
 		$status = sanitize_key( $_GET['status'] ?? '' );
@@ -169,25 +173,29 @@ final class Dashboard {
 		header( 'Content-Type: text/csv; charset=utf-8' );
 		header( 'Content-Disposition: attachment; filename=recessi-' . gmdate( 'Y-m-d' ) . '.csv' );
 
-		$output = fopen( 'php://output', 'w' );
-		// BOM per Excel (UTF-8).
-		fprintf( $output, chr( 0xEF ) . chr( 0xBB ) . chr( 0xBF ) );
+		// BOM per Excel (UTF-8) - phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo chr( 0xEF ) . chr( 0xBB ) . chr( 0xBF ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
-		fputcsv( $output, [
-			__( 'Ordine', 'woocommerce-easy-withdrawal' ),
-			__( 'Cliente', 'woocommerce-easy-withdrawal' ),
-			__( 'Email', 'woocommerce-easy-withdrawal' ),
-			__( 'Data richiesta', 'woocommerce-easy-withdrawal' ),
-			__( 'Stato', 'woocommerce-easy-withdrawal' ),
-			__( 'Prodotti', 'woocommerce-easy-withdrawal' ),
-			__( 'Motivo', 'woocommerce-easy-withdrawal' ),
-			__( 'Totale ordine', 'woocommerce-easy-withdrawal' ),
-		] );
+		$row_separator = "\n";
+		$col_separator = ',';
+
+		$headers = [
+			esc_html__( 'Ordine', 'easy-withdrawal-for-woocommerce' ),
+			esc_html__( 'Cliente', 'easy-withdrawal-for-woocommerce' ),
+			esc_html__( 'Email', 'easy-withdrawal-for-woocommerce' ),
+			esc_html__( 'Data richiesta', 'easy-withdrawal-for-woocommerce' ),
+			esc_html__( 'Stato', 'easy-withdrawal-for-woocommerce' ),
+			esc_html__( 'Prodotti', 'easy-withdrawal-for-woocommerce' ),
+			esc_html__( 'Motivo', 'easy-withdrawal-for-woocommerce' ),
+			esc_html__( 'Totale ordine', 'easy-withdrawal-for-woocommerce' ),
+		];
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- CSV raw output
+		echo implode( $col_separator, array_map( static fn( $h ) => '"' . str_replace( '"', '""', $h ) . '"', $headers ) ) . $row_separator;
 
 		$status_labels = [
-			'pending'  => __( 'In attesa', 'woocommerce-easy-withdrawal' ),
-			'accepted' => __( 'Approvato', 'woocommerce-easy-withdrawal' ),
-			'rejected' => __( 'Respinto', 'woocommerce-easy-withdrawal' ),
+			'pending'  => __( 'In attesa', 'easy-withdrawal-for-woocommerce' ),
+			'accepted' => __( 'Approvato', 'easy-withdrawal-for-woocommerce' ),
+			'rejected' => __( 'Respinto', 'easy-withdrawal-for-woocommerce' ),
 		];
 
 		foreach ( $result['orders'] as $order ) {
@@ -198,7 +206,7 @@ final class Dashboard {
 				$data['items']
 			) );
 
-			fputcsv( $output, [
+			$row = [
 				$order->get_order_number(),
 				$order->get_formatted_billing_full_name(),
 				$order->get_billing_email(),
@@ -207,10 +215,11 @@ final class Dashboard {
 				$item_names,
 				$data['reason'],
 				$order->get_total(),
-			] );
+			];
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- CSV raw output
+			echo implode( $col_separator, array_map( static fn( $v ) => '"' . str_replace( '"', '""', (string) $v ) . '"', $row ) ) . $row_separator;
 		}
 
-		fclose( $output );
 		exit;
 	}
 
@@ -228,11 +237,11 @@ final class Dashboard {
 		$preview_url = get_preview_post_link( $page_id );
 		printf(
 			'<div class="notice notice-warning"><p>%s <a href="%s">%s</a> | <a href="%s" target="_blank">%s</a></p></div>',
-			esc_html__( '⚠️ La pagina "Diritto di Recesso" è ancora in bozza. Personalizzala con i dati della tua attività e pubblicala.', 'woocommerce-easy-withdrawal' ),
+			esc_html__( '⚠️ La pagina "Diritto di Recesso" è ancora in bozza. Personalizzala con i dati della tua attività e pubblicala.', 'easy-withdrawal-for-woocommerce' ),
 			esc_url( $edit_url ),
-			esc_html__( 'Modifica pagina', 'woocommerce-easy-withdrawal' ),
+			esc_html__( 'Modifica pagina', 'easy-withdrawal-for-woocommerce' ),
 			esc_url( $preview_url ),
-			esc_html__( 'Anteprima', 'woocommerce-easy-withdrawal' )
+			esc_html__( 'Anteprima', 'easy-withdrawal-for-woocommerce' )
 		);
 	}
 
@@ -243,14 +252,15 @@ final class Dashboard {
 			return;
 		}
 
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only notice param after redirect.
 		$msg = sanitize_key( $_GET['wew_msg'] ?? '' );
 		if ( 'updated' === $msg ) {
 			echo '<div class="notice notice-success is-dismissible"><p>'
-				. esc_html__( 'Stato aggiornato con successo.', 'woocommerce-easy-withdrawal' )
+				. esc_html__( 'Stato aggiornato con successo.', 'easy-withdrawal-for-woocommerce' )
 				. '</p></div>';
 		} elseif ( 'error' === $msg ) {
 			echo '<div class="notice notice-error is-dismissible"><p>'
-				. esc_html__( 'Si è verificato un errore durante l\'aggiornamento.', 'woocommerce-easy-withdrawal' )
+				. esc_html__( 'Si è verificato un errore durante l\'aggiornamento.', 'easy-withdrawal-for-woocommerce' )
 				. '</p></div>';
 		}
 	}

@@ -88,15 +88,15 @@ final class WithdrawalRepository {
 		$order->update_meta_data( '_wew_withdrawal_data', wp_json_encode( $data ) );
 
 		$labels = [
-			'pending'  => __( 'In attesa', 'woocommerce-easy-withdrawal' ),
-			'accepted' => __( 'Approvato', 'woocommerce-easy-withdrawal' ),
-			'rejected' => __( 'Respinto', 'woocommerce-easy-withdrawal' ),
+			'pending'  => __( 'In attesa', 'easy-withdrawal-for-woocommerce' ),
+			'accepted' => __( 'Approvato', 'easy-withdrawal-for-woocommerce' ),
+			'rejected' => __( 'Respinto', 'easy-withdrawal-for-woocommerce' ),
 		];
 
 		$order->add_order_note(
 			sprintf(
 				/* translators: %s = nuovo stato */
-				__( '🔄 Stato recesso aggiornato a: %s', 'woocommerce-easy-withdrawal' ),
+				__( '🔄 Stato recesso aggiornato a: %s', 'easy-withdrawal-for-woocommerce' ),
 				$labels[ $status ]
 			),
 			false,

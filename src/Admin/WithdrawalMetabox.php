@@ -37,7 +37,7 @@ final class WithdrawalMetabox {
 		foreach ( $screens as $screen ) {
 			add_meta_box(
 				'wew_withdrawal_metabox',
-				__( '🔄 Recesso Easy Withdrawal', 'woocommerce-easy-withdrawal' ),
+				__( '🔄 Recesso Easy Withdrawal', 'easy-withdrawal-for-woocommerce' ),
 				[ $this, 'render' ],
 				$screen,
 				'side',
@@ -73,7 +73,7 @@ final class WithdrawalMetabox {
 
 		if ( ! $requested ) {
 			echo '<p style="color:#888;font-size:12px;">'
-				. esc_html__( 'Nessuna richiesta di recesso per questo ordine.', 'woocommerce-easy-withdrawal' )
+				. esc_html__( 'Nessuna richiesta di recesso per questo ordine.', 'easy-withdrawal-for-woocommerce' )
 				. '</p>';
 			return;
 		}
@@ -85,9 +85,9 @@ final class WithdrawalMetabox {
 		$status = $data['status']       ?? 'pending';
 
 		$status_labels = [
-			'pending'  => [ __( 'In attesa', 'woocommerce-easy-withdrawal' ), '#ffc107' ],
-			'accepted' => [ __( 'Approvato', 'woocommerce-easy-withdrawal' ), '#28a745' ],
-			'rejected' => [ __( 'Respinto', 'woocommerce-easy-withdrawal' ),  '#dc3545' ],
+			'pending'  => [ __( 'In attesa', 'easy-withdrawal-for-woocommerce' ), '#ffc107' ],
+			'accepted' => [ __( 'Approvato', 'easy-withdrawal-for-woocommerce' ), '#28a745' ],
+			'rejected' => [ __( 'Respinto', 'easy-withdrawal-for-woocommerce' ),  '#dc3545' ],
 		];
 		[ $status_label, $status_color ] = $status_labels[ $status ] ?? $status_labels['pending'];
 		?>
@@ -95,12 +95,12 @@ final class WithdrawalMetabox {
 		<div class="wew-metabox">
 
 			<p>
-				<strong><?php esc_html_e( 'Data richiesta:', 'woocommerce-easy-withdrawal' ); ?></strong><br>
+				<strong><?php esc_html_e( 'Data richiesta:', 'easy-withdrawal-for-woocommerce' ); ?></strong><br>
 				<?php echo $date ? esc_html( date_i18n( 'd/m/Y H:i', strtotime( $date ) ) ) : '—'; ?>
 			</p>
 
 			<p>
-				<strong><?php esc_html_e( 'Stato:', 'woocommerce-easy-withdrawal' ); ?></strong><br>
+				<strong><?php esc_html_e( 'Stato:', 'easy-withdrawal-for-woocommerce' ); ?></strong><br>
 				<span style="
 					display:inline-block;
 					padding:2px 10px;
@@ -116,7 +116,7 @@ final class WithdrawalMetabox {
 			</p>
 
 			<?php if ( ! empty( $items ) ) : ?>
-				<p><strong><?php esc_html_e( 'Prodotti:', 'woocommerce-easy-withdrawal' ); ?></strong></p>
+				<p><strong><?php esc_html_e( 'Prodotti:', 'easy-withdrawal-for-woocommerce' ); ?></strong></p>
 				<ul style="margin:0 0 8px 16px;padding:0;font-size:12px;">
 					<?php foreach ( $items as $item ) : ?>
 						<li><?php echo esc_html( $item['name'] ); ?> &times; <?php echo esc_html( $item['qty'] ); ?></li>
@@ -126,7 +126,7 @@ final class WithdrawalMetabox {
 
 			<?php if ( $reason ) : ?>
 				<p>
-					<strong><?php esc_html_e( 'Motivo:', 'woocommerce-easy-withdrawal' ); ?></strong><br>
+					<strong><?php esc_html_e( 'Motivo:', 'easy-withdrawal-for-woocommerce' ); ?></strong><br>
 					<em style="font-size:12px;color:#555;"><?php echo esc_html( $reason ); ?></em>
 				</p>
 			<?php endif; ?>

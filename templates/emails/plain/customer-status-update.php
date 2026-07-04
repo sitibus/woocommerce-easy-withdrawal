@@ -13,25 +13,27 @@
 defined( 'ABSPATH' ) || exit;
 
 $label = 'accepted' === $new_status
-	? __( 'APPROVATA', 'woocommerce-easy-withdrawal' )
-	: __( 'RESPINTA', 'woocommerce-easy-withdrawal' );
+	? esc_html__( 'APPROVATA', 'easy-withdrawal-for-woocommerce' )
+	: esc_html__( 'RESPINTA', 'easy-withdrawal-for-woocommerce' );
 
 echo "= " . esc_html( $email_heading ) . " =\n\n";
 
-printf( esc_html__( 'Gentile %s,', 'woocommerce-easy-withdrawal' ), esc_html( $order->get_formatted_billing_full_name() ) );
+/* translators: %s = nome cliente */
+printf( esc_html__( 'Gentile %s,', 'easy-withdrawal-for-woocommerce' ), esc_html( $order->get_formatted_billing_full_name() ) );
 echo "\n\n";
 
 printf(
-	esc_html__( 'La tua richiesta di recesso per l\'ordine #%s è stata: %s', 'woocommerce-easy-withdrawal' ),
+	/* translators: 1: numero ordine, 2: stato approvato o respinto */
+	esc_html__( 'La tua richiesta di recesso per l\'ordine #%1$s è stata: %2$s', 'easy-withdrawal-for-woocommerce' ),
 	esc_html( $order->get_order_number() ),
 	esc_html( $label )
 );
 echo "\n\n";
 
 if ( 'accepted' === $new_status ) {
-	echo esc_html__( 'Ti contatteremo a breve con le istruzioni per la restituzione e il rimborso.', 'woocommerce-easy-withdrawal' );
+	echo esc_html__( 'Ti contatteremo a breve con le istruzioni per la restituzione e il rimborso.', 'easy-withdrawal-for-woocommerce' );
 } else {
-	echo esc_html__( 'Per ulteriori informazioni contatta il nostro servizio clienti.', 'woocommerce-easy-withdrawal' );
+	echo esc_html__( 'Per ulteriori informazioni contatta il nostro servizio clienti.', 'easy-withdrawal-for-woocommerce' );
 }
 echo "\n\n";
 
@@ -39,4 +41,4 @@ if ( $additional_content ) {
 	echo esc_html( wp_strip_all_tags( $additional_content ) ) . "\n\n";
 }
 
-echo apply_filters( 'woocommerce_email_footer_text', get_option( 'woocommerce_email_footer_text' ) ) . "\n";
+echo esc_html( wp_strip_all_tags( (string) apply_filters( 'woocommerce_email_footer_text', get_option( 'woocommerce_email_footer_text' ) ) ) ) . "\n";

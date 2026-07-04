@@ -31,7 +31,7 @@ final class OrderStatus {
 	/** Registra lo status come post_status WordPress. */
 	public function register_status(): void {
 		register_post_status( 'wc-' . self::STATUS, [
-			'label'                     => _x( 'Recesso richiesto', 'Order status', 'woocommerce-easy-withdrawal' ),
+			'label'                     => _x( 'Recesso richiesto', 'Order status', 'easy-withdrawal-for-woocommerce' ),
 			'public'                    => false,
 			'exclude_from_search'       => false,
 			'show_in_admin_all_list'    => true,
@@ -40,7 +40,7 @@ final class OrderStatus {
 			'label_count'               => _n_noop(
 				'Recesso richiesto <span class="count">(%s)</span>',
 				'Recesso richiesto <span class="count">(%s)</span>',
-				'woocommerce-easy-withdrawal'
+				'easy-withdrawal-for-woocommerce'
 			),
 		] );
 	}
@@ -52,7 +52,7 @@ final class OrderStatus {
 	 * @return array<string, string>
 	 */
 	public function add_to_wc_list( array $statuses ): array {
-		$statuses[ 'wc-' . self::STATUS ] = _x( 'Recesso richiesto', 'Order status', 'woocommerce-easy-withdrawal' );
+		$statuses[ 'wc-' . self::STATUS ] = _x( 'Recesso richiesto', 'Order status', 'easy-withdrawal-for-woocommerce' );
 		return $statuses;
 	}
 
@@ -75,7 +75,7 @@ final class OrderStatus {
 	public static function set_withdrawal_requested( \WC_Order $order ): void {
 		$order->update_status(
 			self::STATUS,
-			__( 'Richiesta di recesso inviata dal cliente.', 'woocommerce-easy-withdrawal' )
+			__( 'Richiesta di recesso inviata dal cliente.', 'easy-withdrawal-for-woocommerce' )
 		);
 
 		// Nota ordine con dettaglio.
@@ -87,10 +87,11 @@ final class OrderStatus {
 
 		$note = sprintf(
 			/* translators: 1: data, 2: prodotti, 3: motivo */
-			__( '🔄 Recesso richiesto il %1$s. Prodotti: %2$s.%3$s', 'woocommerce-easy-withdrawal' ),
+			__( '🔄 Recesso richiesto il %1$s. Prodotti: %2$s.%3$s', 'easy-withdrawal-for-woocommerce' ),
 			current_time( 'd/m/Y H:i' ),
-			$item_names ?: __( 'tutti', 'woocommerce-easy-withdrawal' ),
-			$reason ? ' ' . sprintf( __( 'Motivo: "%s".', 'woocommerce-easy-withdrawal' ), $reason ) : ''
+			$item_names ?: __( 'tutti', 'easy-withdrawal-for-woocommerce' ),
+			/* translators: %s = motivo del recesso */
+			$reason ? ' ' . sprintf( __( 'Motivo: "%s".', 'easy-withdrawal-for-woocommerce' ), $reason ) : ''
 		);
 
 		$order->add_order_note( $note, false, false );

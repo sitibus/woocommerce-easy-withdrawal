@@ -46,8 +46,6 @@ final class Plugin {
 
 	/** Inizializza tutti i moduli del plugin. */
 	public function init(): void {
-		$this->load_textdomain();
-
 		// Admin.
 		if ( is_admin() ) {
 			( new Settings() )->init();
@@ -72,12 +70,5 @@ final class Plugin {
 		( new EnfoldCompat() )->init();
 	}
 
-	/** Carica le traduzioni. */
-	private function load_textdomain(): void {
-		load_plugin_textdomain(
-			WEW_TEXT_DOMAIN,
-			false,
-			dirname( plugin_basename( WEW_FILE ) ) . '/languages'
-		);
-	}
+	/** Traduzioni gestite automaticamente da WordPress 4.6+. */
 }

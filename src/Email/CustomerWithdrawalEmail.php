@@ -26,8 +26,8 @@ class CustomerWithdrawalEmail extends \WC_Email {
 	public function __construct() {
 		$this->id             = 'wew_customer_withdrawal';
 		$this->customer_email = true;
-		$this->title          = __( 'WEW – Conferma recesso (cliente)', 'woocommerce-easy-withdrawal' );
-		$this->description    = __( 'Inviata al cliente quando la richiesta di recesso viene ricevuta.', 'woocommerce-easy-withdrawal' );
+		$this->title          = __( 'WEW – Conferma recesso (cliente)', 'easy-withdrawal-for-woocommerce' );
+		$this->description    = __( 'Inviata al cliente quando la richiesta di recesso viene ricevuta.', 'easy-withdrawal-for-woocommerce' );
 		$this->template_html  = 'emails/customer-withdrawal.php';
 		$this->template_plain = 'emails/plain/customer-withdrawal.php';
 		$this->template_base  = WEW_DIR . 'templates/';
@@ -46,7 +46,7 @@ class CustomerWithdrawalEmail extends \WC_Email {
 	 * @return string
 	 */
 	public function get_default_subject(): string {
-		return __( 'Richiesta di recesso ricevuta – Ordine #{order_number}', 'woocommerce-easy-withdrawal' );
+		return __( 'Richiesta di recesso ricevuta – Ordine #{order_number}', 'easy-withdrawal-for-woocommerce' );
 	}
 
 	/**
@@ -55,7 +55,7 @@ class CustomerWithdrawalEmail extends \WC_Email {
 	 * @return string
 	 */
 	public function get_default_heading(): string {
-		return __( 'Richiesta di recesso ricevuta', 'woocommerce-easy-withdrawal' );
+		return __( 'Richiesta di recesso ricevuta', 'easy-withdrawal-for-woocommerce' );
 	}
 
 	/**
@@ -103,7 +103,7 @@ class CustomerWithdrawalEmail extends \WC_Email {
 				'plain_text'        => false,
 				'email'             => $this,
 			],
-			'woocommerce-easy-withdrawal/',
+			'easy-withdrawal-for-woocommerce/',
 			$this->template_base
 		);
 	}
@@ -122,7 +122,7 @@ class CustomerWithdrawalEmail extends \WC_Email {
 				'plain_text'        => true,
 				'email'             => $this,
 			],
-			'woocommerce-easy-withdrawal/',
+			'easy-withdrawal-for-woocommerce/',
 			$this->template_base
 		);
 	}

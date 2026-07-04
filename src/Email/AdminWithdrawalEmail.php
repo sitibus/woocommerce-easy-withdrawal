@@ -32,8 +32,8 @@ class AdminWithdrawalEmail extends \WC_Email {
 	public function __construct() {
 		$this->id             = 'wew_admin_withdrawal';
 		$this->customer_email = false;
-		$this->title          = __( 'WEW – Nuova richiesta recesso (admin)', 'woocommerce-easy-withdrawal' );
-		$this->description    = __( 'Inviata all\'amministratore quando un cliente invia una richiesta di recesso.', 'woocommerce-easy-withdrawal' );
+		$this->title          = __( 'WEW – Nuova richiesta recesso (admin)', 'easy-withdrawal-for-woocommerce' );
+		$this->description    = __( 'Inviata all\'amministratore quando un cliente invia una richiesta di recesso.', 'easy-withdrawal-for-woocommerce' );
 		$this->template_html  = 'emails/admin-withdrawal.php';
 		$this->template_plain = 'emails/plain/admin-withdrawal.php';
 		$this->template_base  = WEW_DIR . 'templates/';
@@ -46,11 +46,11 @@ class AdminWithdrawalEmail extends \WC_Email {
 	}
 
 	public function get_default_subject(): string {
-		return __( '[Recesso] Nuova richiesta – Ordine #{order_number} da {customer_name}', 'woocommerce-easy-withdrawal' );
+		return __( '[Recesso] Nuova richiesta – Ordine #{order_number} da {customer_name}', 'easy-withdrawal-for-woocommerce' );
 	}
 
 	public function get_default_heading(): string {
-		return __( 'Nuova richiesta di recesso', 'woocommerce-easy-withdrawal' );
+		return __( 'Nuova richiesta di recesso', 'easy-withdrawal-for-woocommerce' );
 	}
 
 	/**
@@ -150,7 +150,7 @@ class AdminWithdrawalEmail extends \WC_Email {
 				'plain_text'        => false,
 				'email'             => $this,
 			],
-			'woocommerce-easy-withdrawal/',
+			'easy-withdrawal-for-woocommerce/',
 			$this->template_base
 		);
 	}
@@ -169,7 +169,7 @@ class AdminWithdrawalEmail extends \WC_Email {
 				'plain_text'        => true,
 				'email'             => $this,
 			],
-			'woocommerce-easy-withdrawal/',
+			'easy-withdrawal-for-woocommerce/',
 			$this->template_base
 		);
 	}

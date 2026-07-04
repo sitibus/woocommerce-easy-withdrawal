@@ -40,8 +40,8 @@ final class Settings {
 	public function register_menu(): void {
 		add_submenu_page(
 			'woocommerce',
-			__( 'Recessi', 'woocommerce-easy-withdrawal' ),
-			__( 'Recessi', 'woocommerce-easy-withdrawal' ),
+			__( 'Recessi', 'easy-withdrawal-for-woocommerce' ),
+			__( 'Recessi', 'easy-withdrawal-for-woocommerce' ),
 			'manage_woocommerce',
 			self::PAGE_SLUG,
 			[ $this, 'render_page' ]
@@ -62,7 +62,7 @@ final class Settings {
 		// Sezione generale.
 		add_settings_section(
 			'wew_general',
-			__( 'Impostazioni generali', 'woocommerce-easy-withdrawal' ),
+			__( 'Impostazioni generali', 'easy-withdrawal-for-woocommerce' ),
 			'__return_false',
 			self::PAGE_SLUG
 		);
@@ -71,27 +71,27 @@ final class Settings {
 		$fields = [
 			[
 				'id'    => 'withdrawal_days',
-				'label' => __( 'Giorni di recesso', 'woocommerce-easy-withdrawal' ),
+				'label' => __( 'Giorni di recesso', 'easy-withdrawal-for-woocommerce' ),
 				'cb'    => [ $this, 'field_withdrawal_days' ],
 			],
 			[
 				'id'    => 'admin_email',
-				'label' => __( 'Email amministratore', 'woocommerce-easy-withdrawal' ),
+				'label' => __( 'Email amministratore', 'easy-withdrawal-for-woocommerce' ),
 				'cb'    => [ $this, 'field_admin_email' ],
 			],
 			[
 				'id'    => 'button_text',
-				'label' => __( 'Testo del pulsante', 'woocommerce-easy-withdrawal' ),
+				'label' => __( 'Testo del pulsante', 'easy-withdrawal-for-woocommerce' ),
 				'cb'    => [ $this, 'field_button_text' ],
 			],
 			[
 				'id'    => 'conditions_page_id',
-				'label' => __( 'Pagina condizioni di recesso', 'woocommerce-easy-withdrawal' ),
+				'label' => __( 'Pagina condizioni di recesso', 'easy-withdrawal-for-woocommerce' ),
 				'cb'    => [ $this, 'field_conditions_page' ],
 			],
 			[
 				'id'    => 'enable_partial_withdrawal',
-				'label' => __( 'Abilita recesso parziale', 'woocommerce-easy-withdrawal' ),
+				'label' => __( 'Abilita recesso parziale', 'easy-withdrawal-for-woocommerce' ),
 				'cb'    => [ $this, 'field_partial_withdrawal' ],
 			],
 		];
@@ -149,7 +149,7 @@ final class Settings {
 			<p class="description">%s</p>',
 			esc_attr( self::OPTION_NAME ),
 			esc_attr( $val ),
-			esc_html__( 'Numero di giorni entro cui il cliente può richiedere il recesso (default: 14).', 'woocommerce-easy-withdrawal' )
+			esc_html__( 'Numero di giorni entro cui il cliente può richiedere il recesso (default: 14).', 'easy-withdrawal-for-woocommerce' )
 		);
 	}
 
@@ -160,7 +160,7 @@ final class Settings {
 			<p class="description">%s</p>',
 			esc_attr( self::OPTION_NAME ),
 			esc_attr( $val ),
-			esc_html__( 'Email che riceve la notifica di ogni richiesta di recesso.', 'woocommerce-easy-withdrawal' )
+			esc_html__( 'Email che riceve la notifica di ogni richiesta di recesso.', 'easy-withdrawal-for-woocommerce' )
 		);
 	}
 
@@ -171,19 +171,21 @@ final class Settings {
 			<p class="description">%s</p>',
 			esc_attr( self::OPTION_NAME ),
 			esc_attr( $val ),
-			esc_html__( 'Testo mostrato nel pulsante nell\'area "I miei ordini".', 'woocommerce-easy-withdrawal' )
+			esc_html__( 'Testo mostrato nel pulsante nell\'area "I miei ordini".', 'easy-withdrawal-for-woocommerce' )
 		);
 	}
 
 	public function field_conditions_page(): void {
 		$page_id = (int) SettingsHelper::get( 'conditions_page_id', 0 );
-		wp_dropdown_pages( [
-			'name'              => self::OPTION_NAME . '[conditions_page_id]',
-			'show_option_none'  => __( '— Nessuna pagina —', 'woocommerce-easy-withdrawal' ),
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- wp_dropdown_pages is a trusted WP function
+	wp_dropdown_pages( [
+			'name'              => esc_attr( self::OPTION_NAME ) . '[conditions_page_id]',
+			'show_option_none'  => esc_html__( '— Nessuna pagina —', 'easy-withdrawal-for-woocommerce' ),
 			'option_none_value' => '0',
-			'selected'          => $page_id,
+			'selected'          => absint( $page_id ),
+			'echo'              => 1,
 		] );
-		echo '<p class="description">' . esc_html__( 'Pagina con le condizioni di recesso (verrà linkata nel form).', 'woocommerce-easy-withdrawal' ) . '</p>';
+		echo '<p class="description">' . esc_html__( 'Pagina con le condizioni di recesso (verrà linkata nel form).', 'easy-withdrawal-for-woocommerce' ) . '</p>';
 	}
 
 	public function field_partial_withdrawal(): void {
@@ -196,20 +198,20 @@ final class Settings {
 			<p class="description">%s</p>',
 			esc_attr( self::OPTION_NAME ),
 			checked( $enabled, true, false ),
-			esc_html__( 'Abilita', 'woocommerce-easy-withdrawal' ),
-			esc_html__( 'Se abilitato, il cliente può selezionare solo alcuni prodotti dell\'ordine per il recesso.', 'woocommerce-easy-withdrawal' )
+			esc_html__( 'Abilita', 'easy-withdrawal-for-woocommerce' ),
+			esc_html__( 'Se abilitato, il cliente può selezionare solo alcuni prodotti dell\'ordine per il recesso.', 'easy-withdrawal-for-woocommerce' )
 		);
 	}
 
 	/** Render pagina impostazioni. */
 	public function render_page(): void {
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
-			wp_die( esc_html__( 'Accesso non autorizzato.', 'woocommerce-easy-withdrawal' ) );
+			wp_die( esc_html__( 'Accesso non autorizzato.', 'easy-withdrawal-for-woocommerce' ) );
 		}
 		?>
 		<div class="wrap wew-settings-page">
 			<h1>
-				<?php esc_html_e( 'WooCommerce Easy Withdrawal', 'woocommerce-easy-withdrawal' ); ?>
+				<?php esc_html_e( 'WooCommerce Easy Withdrawal', 'easy-withdrawal-for-woocommerce' ); ?>
 				<span class="wew-version">v<?php echo esc_html( WEW_VERSION ); ?></span>
 			</h1>
 
@@ -219,7 +221,7 @@ final class Settings {
 				<?php
 				settings_fields( self::OPTION_GROUP );
 				do_settings_sections( self::PAGE_SLUG );
-				submit_button( __( 'Salva impostazioni', 'woocommerce-easy-withdrawal' ) );
+				submit_button( __( 'Salva impostazioni', 'easy-withdrawal-for-woocommerce' ) );
 				?>
 			</form>
 		</div>

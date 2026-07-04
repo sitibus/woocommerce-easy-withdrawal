@@ -36,19 +36,19 @@ final class PdfGenerator {
 	/** Gestisce il download PDF dall'admin. */
 	public function handle_download(): void {
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
-			wp_die( esc_html__( 'Accesso non autorizzato.', 'woocommerce-easy-withdrawal' ) );
+			wp_die( esc_html__( 'Accesso non autorizzato.', 'easy-withdrawal-for-woocommerce' ) );
 		}
 
 		$order_id = absint( $_GET['order_id'] ?? 0 );
 		$nonce    = sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ?? '' ) );
 
 		if ( ! wp_verify_nonce( $nonce, 'wew_pdf_' . $order_id ) ) {
-			wp_die( esc_html__( 'Richiesta non valida.', 'woocommerce-easy-withdrawal' ) );
+			wp_die( esc_html__( 'Richiesta non valida.', 'easy-withdrawal-for-woocommerce' ) );
 		}
 
 		$order = wc_get_order( $order_id );
 		if ( ! $order instanceof \WC_Order ) {
-			wp_die( esc_html__( 'Ordine non trovato.', 'woocommerce-easy-withdrawal' ) );
+			wp_die( esc_html__( 'Ordine non trovato.', 'easy-withdrawal-for-woocommerce' ) );
 		}
 
 		$this->output_pdf( $order );
@@ -60,7 +60,7 @@ final class PdfGenerator {
 			return;
 		}
 
-		if ( 'GET' !== ( $_SERVER['REQUEST_METHOD'] ?? '' ) ) {
+		if ( 'GET' !== sanitize_text_field( wp_unslash( $_SERVER['REQUEST_METHOD'] ?? '' ) ) ) {
 			return;
 		}
 

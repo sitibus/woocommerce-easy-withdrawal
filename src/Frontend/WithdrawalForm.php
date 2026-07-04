@@ -48,6 +48,7 @@ final class WithdrawalForm {
 			return;
 		}
 
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce verificato in get_verified_order().
 		$action = sanitize_key( $_GET[ self::QV_ACTION ] ?? '' );
 		if ( 'request' !== $action ) {
 			return;
@@ -56,7 +57,7 @@ final class WithdrawalForm {
 		$order = $this->get_verified_order();
 		if ( ! $order ) {
 			wc_add_notice(
-				__( 'Ordine non trovato o non valido per il recesso.', 'woocommerce-easy-withdrawal' ),
+				__( 'Ordine non trovato o non valido per il recesso.', 'easy-withdrawal-for-woocommerce' ),
 				'error'
 			);
 			wp_safe_redirect( wc_get_account_endpoint_url( 'orders' ) );
@@ -85,7 +86,7 @@ final class WithdrawalForm {
 		wc_get_template(
 			'withdrawal-form.php',
 			compact( 'order', 'items', 'partial_enabled', 'conditions_url', 'days_remaining' ),
-			'woocommerce-easy-withdrawal/',
+			'easy-withdrawal-for-woocommerce/',
 			WEW_DIR . 'templates/'
 		);
 	}
@@ -111,7 +112,7 @@ final class WithdrawalForm {
 		$order_id = absint( $_POST['wew_order_id'] ?? 0 );
 
 		if ( ! wp_verify_nonce( $nonce, 'wew_submit_withdrawal_' . $order_id ) ) {
-			wc_add_notice( __( 'Richiesta non valida. Riprova.', 'woocommerce-easy-withdrawal' ), 'error' );
+			wc_add_notice( __( 'Richiesta non valida. Riprova.', 'easy-withdrawal-for-woocommerce' ), 'error' );
 			wp_safe_redirect( wc_get_account_endpoint_url( 'orders' ) );
 			exit;
 		}
@@ -119,20 +120,20 @@ final class WithdrawalForm {
 		// Recupera e verifica ordine.
 		$order = wc_get_order( $order_id );
 		if ( ! $order instanceof \WC_Order || ! $this->user_owns_order( $order ) ) {
-			wc_add_notice( __( 'Ordine non trovato.', 'woocommerce-easy-withdrawal' ), 'error' );
+			wc_add_notice( __( 'Ordine non trovato.', 'easy-withdrawal-for-woocommerce' ), 'error' );
 			wp_safe_redirect( wc_get_account_endpoint_url( 'orders' ) );
 			exit;
 		}
 
 		if ( ! OrderHelper::is_eligible_for_withdrawal( $order ) ) {
-			wc_add_notice( __( 'Questo ordine non è più idoneo al recesso.', 'woocommerce-easy-withdrawal' ), 'error' );
+			wc_add_notice( __( 'Questo ordine non è più idoneo al recesso.', 'easy-withdrawal-for-woocommerce' ), 'error' );
 			wp_safe_redirect( wc_get_account_endpoint_url( 'orders' ) );
 			exit;
 		}
 
 		// Accettazione condizioni obbligatoria.
 		if ( empty( $_POST['wew_accept_conditions'] ) ) {
-			wc_add_notice( __( 'Devi accettare le condizioni di recesso per procedere.', 'woocommerce-easy-withdrawal' ), 'error' );
+			wc_add_notice( __( 'Devi accettare le condizioni di recesso per procedere.', 'easy-withdrawal-for-woocommerce' ), 'error' );
 			wp_safe_redirect( $this->form_url( $order ) );
 			exit;
 		}
@@ -142,7 +143,7 @@ final class WithdrawalForm {
 		$selected_items   = $this->parse_selected_items( $order, $partial_enabled );
 
 		if ( empty( $selected_items ) ) {
-			wc_add_notice( __( 'Seleziona almeno un prodotto per procedere con il recesso.', 'woocommerce-easy-withdrawal' ), 'error' );
+			wc_add_notice( __( 'Seleziona almeno un prodotto per procedere con il recesso.', 'easy-withdrawal-for-woocommerce' ), 'error' );
 			wp_safe_redirect( $this->form_url( $order ) );
 			exit;
 		}
@@ -229,8 +230,26 @@ final class WithdrawalForm {
 		}
 
 		// Parziale: prende solo gli item selezionati con la quantità indicata.
-		$posted = $_POST['wew_items'] ?? [];
-		if ( ! is_array( $posted ) ) {
+		// Il nonce è già verificato in handle_form_submit() prima di chiamare questo metodo.
+		// phpcs:disable WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput
+		$raw_items = isset( $_POST['wew_items'] ) && is_array( $_POST['wew_items'] )
+			? wp_unslash( $_POST['wew_items'] )
+			: [];
+		// phpcs:enable WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput
+		$posted    = array_map(
+			static function ( $item ) {
+				if ( is_array( $item ) ) {
+					return [
+						'selected' => ! empty( $item['selected'] ) ? 1 : 0,
+						'qty'      => isset( $item['qty'] ) ? absint( $item['qty'] ) : 0,
+					];
+				}
+				return absint( $item );
+			},
+			$raw_items
+		);
+
+		if ( empty( $posted ) ) {
 			return $result;
 		}
 
